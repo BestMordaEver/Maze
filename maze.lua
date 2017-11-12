@@ -1,5 +1,6 @@
 local room = {height, width, exitX = 0, exitY = 0, 
 	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, aAltar = 5, uAltar = 6}
+local sanity = 0 -- Zero for no cycles, use wisely
 
 local function deadend(x,y) -- Checking for deadend
 	local count = 0
@@ -104,16 +105,16 @@ function room:Generate()
 
 		direction = love.math.random(0,3)
 								-- Jumpin`
-		if direction == 0 and x ~= self.width - 1 and self[y][x+2] ~= self.pass and self[y][x+2] ~= self.room then 
+		if direction == 0 and x ~= self.width - 1 and self[y][x+2] ~= self.room and (self[y][x+2] ~= self.pass or check%sanity == 0) then 
 			self[y][x+1] = self.pass 
 			x = x + 2 
-		elseif direction == 1 and x ~= 2 and self[y][x-2] ~= self.pass and self[y][x-2] ~= self.room then 
+		elseif direction == 1 and x ~= 2 and self[y][x-2] ~= self.room and (self[y][x-2] ~= self.pass or check%sanity == 0) then 
 			self[y][x-1] = self.pass 
 			x = x - 2 
-		elseif direction == 2 and y ~= self.height - 1 and self[y+2][x] ~= self.pass and self[y+2][x] ~= self.room then 
+		elseif direction == 2 and y ~= self.height - 1 and self[y+2][x] ~= self.room and (self[y+2][x] ~= self.pass or check%sanity == 0) then 
 			self[y+1][x] = self.pass 
 			y = y + 2
-		elseif direction == 3 and y ~= 2 and self[y-2][x] ~= self.pass and self[y-2][x] ~= self.room then 
+		elseif direction == 3 and y ~= 2 and self[y-2][x] ~= self.room and (self[y-2][x] ~= self.pass or check%sanity == 0) then 
 			self[y-1][x] = self.pass 
 			y = y - 2
 	 		end
@@ -130,6 +131,15 @@ function room:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
+
+  for i = 3, maze.height-2, 2 do -- To erase insanity results
+    for j = 3, maze.width-2, 2 do
+      if maze[i][j+1] == maze.pass and maze[i][j-1] == maze.pass and maze[i+1][j] == maze.pass and maze[i-1][j] == maze.pass then
+        maze[i][j] = maze.pass
+      end
+    end
+  end
+  
 
  	-- Here is end
 	if direction == 0 then

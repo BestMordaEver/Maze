@@ -11,10 +11,10 @@ heightRange = math.floor(height / cluster / 2 + 2) -- so it will fit the monitor
 
 a = love.filesystem.load('maze.lua')
 maze = a()
-maze:new(51, 51)
+maze:new(57, 31)
 maze:Generate()
 
-maze.canvas = love.graphics.newCanvas(maze.width, maze.height)
+maze.canvas = love.graphics.newCanvas((maze.width+1)*cluster, (maze.height+1)*cluster)
 love.graphics.setCanvas(maze.canvas)
   love.graphics.clear()
   love.graphics.setBlendMode('alpha')
