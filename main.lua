@@ -1,6 +1,7 @@
 function love.load()
 	start = love.filesystem.load('start.lua')
 	start()
+  print('load ended')
 end
 
 function love.keypressed(key)

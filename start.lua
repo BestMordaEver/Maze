@@ -3,16 +3,15 @@ width, height = love.window.getMode()
 
 local a = love.filesystem.load('camera.lua')
 camera = a()
+print('camera done')
 
 cluster = 32
-
-widthRange = math.floor(width / cluster / 2 + 2) -- This is how much game has to draw
-heightRange = math.floor(height / cluster / 2 + 2) -- so it will fit the monitor
 
 a = love.filesystem.load('maze.lua')
 maze = a()
 maze:new(57, 31)
 maze:Generate()
+print('maze generated')
 
 maze.canvas = love.graphics.newCanvas((maze.width+1)*cluster, (maze.height+1)*cluster)
 love.graphics.setCanvas(maze.canvas)
@@ -27,13 +26,16 @@ love.graphics.setCanvas(maze.canvas)
     end
   end
 love.graphics.setCanvas()
---camera:setPosition(maze.width/2, maze.height/2)
+print('maze drawn')
 
 entity = love.filesystem.load('entity.lua')
 E = {}
 
 hero = entity()
-hero:new(2*cluster, 2*cluster, 'man', 'idle')
+hero:new(2, 2, 'man', 'idle')
+
+camera:setPosition((hero.x - maze.width/2)*cluster, (hero.y - maze.height/2)*cluster)
+print('hero done')
 
 drawing = love.filesystem.load('drawing.lua')
 keys = love.filesystem.load('keys.lua')

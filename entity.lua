@@ -8,6 +8,14 @@ function entity:new(x, y, sx, sy, group)
 	self.group = group
 end
 
+function entity:tryMovement(x, y, maze)
+  if maze[self.y + y][self.x + x] ~= maze.wall then
+    self.y = self.y + y
+    self.x = self.x + x
+  end
+end
+
+-- Animation part
 function entity.animation:newAnimation(name, del)
 	self[name] = {tick = 1, time = 0, delay = del, imgs = {}}
 end
