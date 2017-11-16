@@ -49,21 +49,23 @@ function room:Generate()
 
 	local roomCount = math.floor((self.width * self.height) / 80)
 	local check = 0
-
+  print('starting')
+  
 	for l = 1, roomCount do -- Room pre-generation routine
 		repeat -- Basically - they must generate before maze
-			
 			local rHeight, rWidth = 2 * love.math.random(1, 2), 2 * love.math.random(1, 2)
 			local b = true
-			check = check + 1
-			if check == 10000 then break end -- In case shit happens 
 			
 			repeat -- Choose the center point of room
 				x = 2*love.math.random(1, (self.width - 1)/2) + 2
 				x = rWidth == 4 and x or x + 1
 				y = 2*love.math.random(1, (self.height - 1)/2) + 2
 				y = rHeight == 4 and y or y + 1
-			until not (x < rWidth + 2 or x > self.width - rWidth - 2 or y < rHeight + 2 or y > self.height - rHeight - 2)
+        check = check + 1
+			until not (x < rWidth + 2 or x > self.width - rWidth - 2 or y < rHeight + 2 or y > self.height - rHeight - 2) or check > 10000
+      
+      check = check + 1
+			if check > 10000 then break end -- In case shit happens 
 
 			for i = y - rHeight/2 - 2, y + rHeight/2 + 2 do -- Check for touching another rooms
 				for j = x - rWidth/2 - 2, x + rWidth/2 + 2  do 
@@ -96,7 +98,7 @@ function room:Generate()
 			
 		until b
 	end 
-
+  print('rooms done')
 	x, y, check = 2, 2, 0
 	local direction = 0
 	self[y][x] = self.pass -- Droppin`
@@ -131,7 +133,8 @@ function room:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-
+  print('ended main')
+  
   for i = 3, maze.height-2, 2 do -- To erase insanity results
     for j = 3, maze.width-2, 2 do
       if maze[i][j+1] == maze.pass and maze[i][j-1] == maze.pass and maze[i+1][j] == maze.pass and maze[i-1][j] == maze.pass then
@@ -139,7 +142,7 @@ function room:Generate()
       end
     end
   end
-  
+  print('insanity done')
 
  	-- Here is end
 	if direction == 0 then
@@ -157,6 +160,7 @@ function room:Generate()
 	end
 
 	self[self.exitY][self.exitX] = self.exit
+  print('exit placed')
 end
 
 function room:GenerateEmpty()
