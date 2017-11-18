@@ -1,5 +1,5 @@
 for i, e in pairs(E) do 
-	e.animation:Wait(t)
+	e.animation:wait(t)
 end 
 
 local lvX, lvY = 0, 0
@@ -12,4 +12,4 @@ if love.keyboard.isDown('left') then lvX = lvX - 1 end
 hero:tryMovement(lvX, lvY, maze)
 ]] -- push to move
 
-camera:setPosition((hero.x - maze.width/2)*cluster, (hero.y - maze.height/2)*cluster)
+camera:setPosition((hero.x+1)*clusterX - love.graphics.getWidth()/2, (hero.y+1)*clusterY - love.graphics.getHeight()/2)

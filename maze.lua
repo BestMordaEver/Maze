@@ -49,7 +49,6 @@ function room:Generate()
 
 	local roomCount = math.floor((self.width * self.height) / 80)
 	local check = 0
-  print('starting')
   
 	for l = 1, roomCount do -- Room pre-generation routine
 		repeat -- Basically - they must generate before maze
@@ -98,7 +97,7 @@ function room:Generate()
 			
 		until b
 	end 
-  print('rooms done')
+  
 	x, y, check = 2, 2, 0
 	local direction = 0
 	self[y][x] = self.pass -- Droppin`
@@ -133,7 +132,6 @@ function room:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-  print('ended main')
   
   for i = 3, maze.height-2, 2 do -- To erase insanity results
     for j = 3, maze.width-2, 2 do
@@ -142,7 +140,6 @@ function room:Generate()
       end
     end
   end
-  print('insanity done')
 
  	-- Here is end
 	if direction == 0 then
@@ -160,7 +157,6 @@ function room:Generate()
 	end
 
 	self[self.exitY][self.exitX] = self.exit
-  print('exit placed')
 end
 
 function room:GenerateEmpty()

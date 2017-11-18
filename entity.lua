@@ -1,11 +1,12 @@
-local entity = {x = 0, y = 0, group, steps = 10, 
+local entity = {x = 0, y = 0, group, state,
 	animation = {count = 0, current = 'none', imgs = {}}}
 E[#E+1] = entity
 
-function entity:new(x, y, sx, sy, group) 
+function entity:new(x, y, group, state) 
 	self.x = x -- Whenever entity created - give him start values via this
 	self.y = y
 	self.group = group
+  self.state = state
 end
 
 function entity:tryMovement(x, y, maze)
@@ -24,7 +25,7 @@ function entity.animation:addFrame(name, img)
 	self[name].imgs[#self[name].imgs+1] = love.graphics.newImage(img)
 end
 
-function entity.animation:Wait(dt)
+function entity.animation:wait(dt)
 	if self.current ~= 'none' then 
 		self[self.current].time = self[self.current].time + dt 
 		if self[self.current].time > self[self.current].delay then 
@@ -46,8 +47,8 @@ function entity.animation:getAnimation()
 	return self.current
 end
 
-function entity:Draw()
-	love.graphics.draw(self.animation[self.animation.current].imgs[self.animation[self.animation.current].tick], self.x*cluster, self.y*cluster)
+function entity:draw()
+	love.graphics.draw(self.animation[self.animation.current].imgs[self.animation[self.animation.current].tick], self.x*clusterX, self.y*clusterY)
 end
 
 return entity
