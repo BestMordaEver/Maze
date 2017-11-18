@@ -1,6 +1,5 @@
-local entity = {x = 0, y = 0, group, state,
-	animation = {count = 0, current = 'none', imgs = {}}}
-E[#E+1] = entity
+local animated = love.filesystem.load('animated.lua')
+local entity = animated()
 
 function entity:new(x, y, group, state) 
 	self.x = x -- Whenever entity created - give him start values via this
@@ -10,45 +9,11 @@ function entity:new(x, y, group, state)
 end
 
 function entity:tryMovement(x, y, maze)
-  if maze[self.y + y][self.x + x] ~= maze.wall then
+  local shit = maze[self.y + y][self.x + x]
+  if shit ~= maze.wall then
     self.y = self.y + y
     self.x = self.x + x
   end
-end
-
--- Animation part
-function entity.animation:newAnimation(name, del)
-	self[name] = {tick = 1, time = 0, delay = del, imgs = {}}
-end
-
-function entity.animation:addFrame(name, img)
-	self[name].imgs[#self[name].imgs+1] = love.graphics.newImage(img)
-end
-
-function entity.animation:wait(dt)
-	if self.current ~= 'none' then 
-		self[self.current].time = self[self.current].time + dt 
-		if self[self.current].time > self[self.current].delay then 
-			self[self.current].time = 0
-			self[self.current].tick =
-				self[self.current].tick == #self[self.current].imgs 
-					and 1 or self[self.current].tick + 1
-		end 
-	end
-end 
-
-function entity.animation:setAnimation(name)
-	self.current = name
-	self[name].tick = 1
-	self[name].time = 0
-end
-
-function entity.animation:getAnimation()
-	return self.current
-end
-
-function entity:draw()
-	love.graphics.draw(self.animation[self.animation.current].imgs[self.animation[self.animation.current].tick], self.x*clusterX, self.y*clusterY)
 end
 
 return entity
