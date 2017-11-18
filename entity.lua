@@ -10,9 +10,14 @@ end
 
 function entity:tryMovement(x, y, maze)
   local shit = maze[self.y + y][self.x + x]
-  if shit ~= maze.wall then
+  if shit == maze.pass then
     self.y = self.y + y
     self.x = self.x + x
+  elseif shit == maze.room then
+    self.y = self.y + y
+    self.x = self.x + x
+  elseif shit == maze.exit then
+    love.event.quit()
   end
 end
 

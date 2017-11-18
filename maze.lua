@@ -1,5 +1,5 @@
 local room = {height, width, exitX = 0, exitY = 0, 
-	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, aAltar = 5, uAltar = 6}
+	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, key = 5}
 local sanity = 0 -- Zero for no cycles, use wisely
 
 local function deadend(x,y) -- Checking for deadend
