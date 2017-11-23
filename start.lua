@@ -17,6 +17,13 @@ maze:Generate()
 
 entity = love.filesystem.load('entity.lua')
 E = {}
+shadow = love.filesystem.load('shadow.lua')
+S = {}
+
+shadows = {}
+shadow()
+S[1]:moveTo(2, 2)
+S[1]:ready()
 
 hero = entity()
 hero:new(2, 2, 'man', 'idle')

@@ -2,19 +2,19 @@ local room = {height, width, exitX = 0, exitY = 0,
 	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, key = 5}
 local sanity = 0 -- Zero for no cycles, use wisely
 
-local function deadend(x,y) -- Checking for deadend
+function room:deadend(x,y) -- Checking for deadend
 	local count = 0
 
-	if x == room.width - 1 or room[y][x + 2] ~= room.wall then 
+	if x == self.width - 1 or self[y][x + 2] ~= self.wall then 
 		count = count + 1 
 	end
-	if y == room.height - 1 or room[y + 2][x] ~= room.wall then 
+	if y == self.height - 1 or self[y + 2][x] ~= self.wall then 
 		count = count + 1 
 	end
-	if x == 2 or room[y][x - 2] ~= room.wall then 
+	if x == 2 or self[y][x - 2] ~= self.wall then 
 		count = count + 1 
 	end
-	if y == 2 or room[y - 2][x] ~= room.wall then 
+	if y == 2 or self[y - 2][x] ~= self.wall then 
 		count = count + 1 
 	end
 	return count == 4
@@ -122,7 +122,7 @@ function room:Generate()
 		 	
 		self[y][x] = self.pass -- Diggin`
 	
-		if deadend(x,y) then -- Gettin` dafuq outta here
+		if self:deadend(x,y) then -- Gettin` dafuq outta here
 		repeat	
 	 		x = 2 * love.math.random(1, (self.width - 1) / 2)
 	 		y = 2 * love.math.random(1, (self.height - 1) / 2)	 	
