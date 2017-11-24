@@ -167,4 +167,65 @@ function room:GenerateEmpty()
 	end
 end
 
+local function mapEnded()
+  local exit = true
+	for i = 2, room.height - 1, 2 do 
+		for j = 2, room.width - 1, 2 do
+			exit = exit and room.ways[i][j] ~= 0
+		end
+	end
+	return exit
+end
+
+function room:mapWays()
+  self.ways = {}
+  for i = 1, self.height do 
+    self.ways[i] = {}
+    for j = 1, self.width do
+      if self[i][j] == self.pass or self[i][j] == self.room then
+        self.ways[i][j] = 0
+      else
+        self.ways[i][j] = -1
+      end
+    end
+  end
+  
+  local W = {}
+  W[1] = {}
+  if self.exitX == self.width then 
+    W[1].x = self.exitX - 1
+  elseif self.exitX == 1 then
+    W[1].x = 2
+  else
+    W[1].x = self.exitX
+  end
+  
+  if self.exitY == self.height then 
+    W[1].y = self.exitY - 1
+  elseif self.exitY == 1 then
+    W[1].y = 2
+  else
+    W[1].y = self.exitY
+  end
+  W[1].c = 1
+  
+  local count = 0
+  
+  repeat
+    --[[count = count + 1  
+    local w = pairs(W)
+    for key, val in w do
+      print(key)
+      self.ways[val.y][val.x] = val.c
+      if self.ways[val.y][val.x+1] == 0 then table.insert(W, {val.y, val.x+1, val.c+1}) end
+      if self.ways[val.y][val.x-1] == 0 then table.insert(W, {val.y, val.x-1, val.c+1}) end
+      if self.ways[val.y+1][val.x] == 0 then table.insert(W, {val.y+1, val.x, val.c+1}) end
+      if self.ways[val.y-1][val.x] == 0 then table.insert(W, {val.y-1, val.x, val.c+1}) end
+      W[key] = nil
+    end]]
+    
+  until count%1000 == 0 and mapEnded
+  
+end
+
 return room

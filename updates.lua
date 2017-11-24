@@ -2,6 +2,14 @@ for i, e in pairs(E) do
 	e.animation:wait(t)
 end 
 
+time = time + t
+if time > 0.5 then
+  for key, val in pairs(S) do
+    val:logic()
+  end
+  time = 0
+end
+
 --[[local lvX, lvY = 0, 0
 
 if love.keyboard.isDown('down') then lvY = 1 end 
@@ -12,4 +20,4 @@ if love.keyboard.isDown('left') then lvX = lvX - 1 end
 hero:tryMovement(lvX, lvY, maze)
 ]] -- push to move
 
-camera:setPosition((hero.x+1)*clusterX - love.graphics.getWidth()/2, (hero.y+1)*clusterY - love.graphics.getHeight()/2)
+camera:setPosition((hero.x+1)*clusterX - width/2, (hero.y+1)*clusterY - height/2)

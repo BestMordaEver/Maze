@@ -8,5 +8,4 @@ elseif k == 'up' then
   hero:tryMovement(0, -1)
 elseif k == 'down' then
   hero:tryMovement(0, 1)
-end 
-S[1]:step()
+end

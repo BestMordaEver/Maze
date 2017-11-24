@@ -4,11 +4,25 @@ S[#S+1] = shadow
 local x, y
 
 repeat
+  local b = true
   x = love.math.random(2, maze.width-1)
   y = love.math.random(2, maze.height-1)
-until maze[y][x] == maze.pass
+  for i=1, #S do
+    b = b and (S[i] == shadow or (S[i].x ~= shadow.x or S[i].y ~= shadow.y))
+  end
+until maze[y][x] == maze.pass and b
 
 shadow:new(x, y, 'shadow', 'down')
+
+function shadow:tryMovement(x, y)
+  local shit = maze[self.y + y][self.x + x]
+  if shit == maze.wall or shit == maze.room or shit == maze.exit then
+    return false
+  elseif shit == maze.pass then
+    self:moveRel(x, y)
+  end
+  return true
+end
 
 function shadow:step()
   if self.state == 'down' then 
@@ -29,22 +43,22 @@ function shadow:ready()
   end
 end
 
-local function deadend(x,y) -- Checking for deadend
+function shadow:deadend() -- Checking for deadend
 	local count = 0
 
-	if maze[y][x + 1] == self.pass then 
+	if maze[self.y][self.x + 1] == maze.pass then 
 		count = count + 1 
 	end
-	if maze[y + 1][x] == self.pass then 
+	if maze[self.y + 1][self.x] == maze.pass then 
 		count = count + 1 
 	end
-	if maze[y][x - 1] == self.pass then 
+	if maze[self.y][self.x - 1] == maze.pass then 
 		count = count + 1 
 	end
-	if maze[y - 1][x] == self.pass then 
+	if maze[self.y - 1][self.x] == maze.pass then 
 		count = count + 1 
 	end
-	return count == 4
+	return count
 end
 
 shadow.animation:newAnimation('moving', 0.1)
@@ -54,13 +68,14 @@ shadow.animation:addFrame('moving','imgs/Men/Shadow2.png')
 shadow.animation:addFrame('moving','imgs/Men/Shadow3.png')
 
 function shadow:logic()
-  local around = deadend(self.x, self.y)
+  local around = self:deadend()
   
   if around == 1 then
     if not self:step() then
       self:turnAround()
       self:step()
     end
+    
   elseif around == 2 then
     if not self:step() then
       self:turnLeft()
@@ -69,14 +84,19 @@ function shadow:logic()
         self:step()
       end
     end
+  
   elseif around == 3 then
     local r = love.math.random(1, 2)
     if r == 1 then 
       self:turnLeft()
-      if not self:step() then
-        self:turnAround()
-        self:step()
-      end
+    else 
+      self:turnRight()
+    end
+    if not self:step() then
+      self:turnAround()
+      self:step()
+    end
+      
   elseif around == 4 then 
     local r = love.math.random(1, 3)
     if r == 1 then
