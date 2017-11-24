@@ -212,20 +212,18 @@ function room:mapWays()
   local count = 0
   
   repeat
-    --[[count = count + 1  
-    local w = pairs(W)
-    for key, val in w do
-      print(key)
+    local N = {}
+    count = count + 1 
+    for key, val in pairs(W) do
       self.ways[val.y][val.x] = val.c
-      if self.ways[val.y][val.x+1] == 0 then table.insert(W, {val.y, val.x+1, val.c+1}) end
-      if self.ways[val.y][val.x-1] == 0 then table.insert(W, {val.y, val.x-1, val.c+1}) end
-      if self.ways[val.y+1][val.x] == 0 then table.insert(W, {val.y+1, val.x, val.c+1}) end
-      if self.ways[val.y-1][val.x] == 0 then table.insert(W, {val.y-1, val.x, val.c+1}) end
+      if self.ways[val.y][val.x+1] == 0 then table.insert(W, {y = val.y, x = val.x+1, c = val.c+1}) end
+      if self.ways[val.y][val.x-1] == 0 then table.insert(W, {y = val.y, x = val.x-1, c = val.c+1}) end
+      if self.ways[val.y+1][val.x] == 0 then table.insert(W, {y = val.y+1, x = val.x, c = val.c+1}) end
+      if self.ways[val.y-1][val.x] == 0 then table.insert(W, {y = val.y-1, x = val.x, c = val.c+1}) end
       W[key] = nil
-    end]]
+    end
     
   until count%1000 == 0 and mapEnded
-  
 end
 
 return room

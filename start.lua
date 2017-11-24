@@ -13,7 +13,7 @@ heightRange = math.floor(height/clusterY/2+2) -- so it will fit the monitor
 
 a = love.filesystem.load('maze.lua')
 maze = a()
-maze:new(57, 31)
+maze:new(57, 35)
 maze:Generate()
 maze:mapWays()
 
@@ -29,7 +29,7 @@ for i=1, math.floor((maze.width * maze.height) / 80) do
 end
 
 hero = entity()
-hero:new(2, 2, 'man', 'idle')
+hero:new(maze.ways.x, maze.ways.y, 'man', 'idle')
 hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
