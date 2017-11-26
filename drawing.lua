@@ -10,8 +10,9 @@ for i = -heightRange + hero.y, heightRange + hero.y do-- We draw only these, who
       love.graphics.setColor(255, 255, 255)
       love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
     else 
-      love.graphics.setColor(255, 255, 255)
-      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+      --local val = 255 * maze.ways[i][j] / maze.ways.max
+      --love.graphics.setColor(val, val, val)
+      --love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
     end
   end
 end
@@ -25,4 +26,3 @@ for num, shad in pairs(S) do
   love.graphics.rectangle('fill', shad.x*clusterX, shad.y*clusterY, clusterX, clusterY)
   --shad:draw()
 end
-  

@@ -8,7 +8,7 @@ repeat
   x = love.math.random(2, maze.width-1)
   y = love.math.random(2, maze.height-1)
   for i=1, #S do
-    b = b and (S[i] == shadow or (S[i].x ~= shadow.x or S[i].y ~= shadow.y))
+    b = b and (S[i] == shadow or (math.abs(maze.ways[y][x] - maze.ways[S[i].y][S[i].x]) > 5))
   end
 until maze[y][x] == maze.pass and b
 
