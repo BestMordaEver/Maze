@@ -5,9 +5,9 @@ hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
 function hero:tryMovement(x, y)
   local shit = maze[self.y + y][self.x + x]
-  if shit == maze.wall then
+  if shit == maze.wall and not magic.earth.isActive then
     return false
-  elseif shit == maze.pass then
+  elseif shit == maze.pass or magic.earth.isActive then
     self:moveRel(x, y)
   elseif shit == maze.room then
     self:moveRel(x, y)

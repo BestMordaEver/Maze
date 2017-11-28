@@ -1,5 +1,5 @@
-local room = {height, width, exitX = 0, exitY = 0, sanity = 0, -- Zero for no cycles, use wisely
-	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, key = 5}
+local room = {height, width, exitX = 0, exitY = 0, roomCount = 0, sanity = 0, -- Zero for no cycles, use wisely
+	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, chestUsed = 5, key = 6}
 
 function room:deadend(x,y) -- Checking for deadend
 	local count = 0
@@ -68,7 +68,7 @@ function room:Generate()
       
       check = check + 1
 			if check > 10000 then break end -- In case shit happens 
-
+      
 			for i = y - rHeight/2 - 2, y + rHeight/2 + 2 do -- Check for touching another rooms
 				for j = x - rWidth/2 - 2, x + rWidth/2 + 2  do 
 					if self[i][j] == self.room then 
@@ -78,14 +78,14 @@ function room:Generate()
 					end 
 				end 
 			end 
-
+      
 			if b then -- If we didn`t touch room - this happens
 				for i = y - rHeight/2, y + rHeight/2 do 
 					for j = x - rWidth/2, x + rWidth/2 do 
 						maze[i][j] = self.room
 					end 
 				end 
-	
+        
 				b = love.math.random(0, 3) -- Exit position
 				if b == 0 then 
 					self[y + rHeight/2 + 1][x - rWidth/2 + 2*(love.math.random(1, rWidth/2))] = self.room
@@ -96,6 +96,8 @@ function room:Generate()
 				elseif b == 3 then 
 					self[y - rHeight/2 + 2*(love.math.random(1, rHeight/2))][x - rWidth/2 - 1] = self.room
 				end
+        
+        self.roomCount = self.roomCount + 1
 			end 
 			
 		until b
@@ -131,7 +133,7 @@ function room:Generate()
 	 		y = 2 * love.math.random(1, (self.height - 1) / 2)	 	
 	 	until self[y][x] == self.pass
 	 	end
-
+    
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()

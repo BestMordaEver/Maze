@@ -1,4 +1,3 @@
-local foo = function ()
 love.graphics.setColor(255,255,255)
 
 for i = -heightRange + hero.y, heightRange + hero.y do-- We draw only these, who fit in screen  
@@ -28,5 +27,7 @@ for num, shad in pairs(S) do
   --shad:draw()
 end
 
+if magic.air.isActive then 
+  love.graphics.setColor(0, 255, 255)
+  love.graphics.rectangle('fill', magic.air.x*clusterX, magic.air.y*clusterY, clusterX, clusterY)
 end
-return foo

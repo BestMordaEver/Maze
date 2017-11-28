@@ -3,7 +3,7 @@ S[#S+1] = shadow
 
 local x, y
 
-repeat
+repeat  
   local b = true
   x = love.math.random(2, maze.width-1)
   y = love.math.random(2, maze.height-1)
@@ -12,8 +12,6 @@ repeat
   end
   b = b and math.abs(maze.ways[y][x] - maze.ways[hero.y][hero.x]) > 3
 until maze[y][x] == maze.pass and b
-
-shadow:new(x, y, 'shadow', 'down')
 
 function shadow:tryMovement(x, y)
   local shit = maze[self.y + y][self.x + x]
@@ -44,7 +42,10 @@ function shadow:ready()
   end
 end
 
-function shadow:deadend() -- Checking for deadend
+shadow:new(x, y, 'shadow', 'down') 
+shadow:ready()
+
+function shadow:deadend()
 	local count = 0
 
 	if maze[self.y][self.x + 1] == maze.pass then 

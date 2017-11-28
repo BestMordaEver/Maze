@@ -1,5 +1,6 @@
 function love.load()
-	dofile('load.lua')
+  print('loading')
+	love.filesystem.load('load.lua')()
   print('loaded')
 end
 

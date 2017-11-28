@@ -1,5 +1,4 @@
-local animated = love.filesystem.load('animated.lua')
-local entity = animated()
+local entity = love.filesystem.load('animated.lua')()
 
 function entity:moveRel(x, y)
   self.x = self.x + x
