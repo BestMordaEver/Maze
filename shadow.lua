@@ -8,8 +8,9 @@ repeat
   x = love.math.random(2, maze.width-1)
   y = love.math.random(2, maze.height-1)
   for i=1, #S do
-    b = b and (S[i] == shadow or (math.abs(maze.ways[y][x] - maze.ways[S[i].y][S[i].x]) > 5))
+    b = b and (S[i] == shadow or (math.abs(maze.ways[y][x] - maze.ways[S[i].y][S[i].x]) > 3))
   end
+  b = b and math.abs(maze.ways[y][x] - maze.ways[hero.y][hero.x]) > 3
 until maze[y][x] == maze.pass and b
 
 shadow:new(x, y, 'shadow', 'down')
@@ -61,12 +62,6 @@ function shadow:deadend() -- Checking for deadend
 	return count
 end
 
-shadow.animation:newAnimation('moving', 0.1)
-shadow.animation:setAnimation('moving')
-shadow.animation:addFrame('moving','imgs/Men/Shadow1.png')
-shadow.animation:addFrame('moving','imgs/Men/Shadow2.png')
-shadow.animation:addFrame('moving','imgs/Men/Shadow3.png')
-
 function shadow:logic()
   local around = self:deadend()
   
@@ -107,3 +102,9 @@ function shadow:logic()
     self:step()
   end
 end
+
+shadow.animation:newAnimation('moving', 0.1)
+shadow.animation:setAnimation('moving')
+shadow.animation:addFrame('moving','imgs/Men/Shadow1.png')
+shadow.animation:addFrame('moving','imgs/Men/Shadow2.png')
+shadow.animation:addFrame('moving','imgs/Men/Shadow3.png')
