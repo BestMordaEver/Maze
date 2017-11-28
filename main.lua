@@ -1,21 +1,18 @@
 function love.load()
-	start = love.filesystem.load('start.lua')
-	start()
-  print('load ended')
+	dofile('load.lua')
+  print('loaded')
 end
 
 function love.keypressed(key)
-	k = key
-	keys()
+	keypressed(key)
 end
 
 function love.update(dt)
-	t = dt
-	updates()
+  update(dt)
 end
 
 function love.draw()
 	camera:set()
-	drawing()
+	draw()
 	camera:unset()
 end
