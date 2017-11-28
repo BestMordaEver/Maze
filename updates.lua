@@ -1,9 +1,8 @@
-local foo = function (dt)
 for i, e in pairs(E) do 
-	e.animation:wait(dt)
+	e.animation:wait(t)
 end 
 
-time = time + dt
+time = time + t
 if time > 0.5 then
   for key, val in pairs(S) do
     val:logic()
@@ -22,6 +21,3 @@ hero:tryMovement(lvX, lvY, maze)
 ]] -- push to move
 
 camera:setPosition((hero.x+1)*clusterX - width/2, (hero.y+1)*clusterY - height/2)
-
-end
-return foo
