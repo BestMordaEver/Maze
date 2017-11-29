@@ -14,6 +14,10 @@ repeat
 until maze[y][x] == maze.pass and b
 
 function shadow:tryMovement(x, y)
+  if self.y + y == magic.fire.y and self.x + x == magic.fire.x then 
+    self:turnAround()
+    return false
+  end
   local shit = maze[self.y + y][self.x + x]
   if shit == maze.wall or shit == maze.room or shit == maze.exit then
     return false

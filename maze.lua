@@ -1,7 +1,7 @@
-local room = {height, width, exitX = 0, exitY = 0, roomCount = 0, sanity = 0, -- Zero for no cycles, use wisely
+local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0, sanity = 0, -- Zero for no cycles, use wisely
 	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, chestUsed = 5, key = 6}
 
-function room:deadend(x,y) -- Checking for deadend
+function maze:deadend(x,y) -- Checking for deadend
 	local count = 0
 
 	if x == self.width - 1 or self[y][x + 2] ~= self.wall then 
@@ -19,21 +19,21 @@ function room:deadend(x,y) -- Checking for deadend
 	return count == 4
 end
 
-function room:setSanity(val)
+function maze:setSanity(val)
   self.sanity = val
 end
 
 local function ended() -- Checking if room is exited
 	local exit = true
-	for i = 2, room.height - 1, 2 do 
-		for j = 2, room.width - 1, 2 do
-			if room[i][j] == room.wall then exit = false end 
+	for i = 2, maze.height - 1, 2 do 
+		for j = 2, maze.width - 1, 2 do
+			if maze[i][j] == maze.wall then exit = false end 
 		end
 	end
 	return exit
 end
 
-function room:new(width, height)
+function maze:new(width, height)
 	self.width = width 
 	self.height = height 
 
@@ -46,7 +46,7 @@ function room:new(width, height)
 	end
 end
 
-function room:Generate()
+function maze:Generate()
 
 	local x,y
 
@@ -111,13 +111,15 @@ function room:Generate()
 
 		direction = love.math.random(0,3)
 								-- Jumpin`
-		if direction == 0 and x ~= self.width - 1 and self[y][x+2] ~= self.room and (self[y][x+2] ~= self.pass or check%self.sanity == 0) then 
+		if direction == 0 and x ~= self.width - 1 and self[y][x+2] ~= self.room and 
+      (self[y][x+2] ~= self.pass or check%self.sanity == 0) then 
 			self[y][x+1] = self.pass 
 			x = x + 2 
 		elseif direction == 1 and x ~= 2 and self[y][x-2] ~= self.room and (self[y][x-2] ~= self.pass or check%self.sanity == 0) then 
 			self[y][x-1] = self.pass 
 			x = x - 2 
-		elseif direction == 2 and y ~= self.height - 1 and self[y+2][x] ~= self.room and (self[y+2][x] ~= self.pass or check%self.sanity == 0) then 
+		elseif direction == 2 and y ~= self.height - 1 and self[y+2][x] ~= self.room and 
+      (self[y+2][x] ~= self.pass or check%self.sanity == 0) then 
 			self[y+1][x] = self.pass 
 			y = y + 2
 		elseif direction == 3 and y ~= 2 and self[y-2][x] ~= self.room and (self[y-2][x] ~= self.pass or check%self.sanity == 0) then 
@@ -164,7 +166,7 @@ function room:Generate()
 	self[self.exitY][self.exitX] = self.exit
 end
 
-function room:GenerateEmpty()
+function maze:GenerateEmpty()
 	for i = 2, self.height - 1 do
 		for j = 2, self.width - 1 do 
 			self[i][j] = self.pass
@@ -174,15 +176,15 @@ end
 
 local function mapEnded()
   local exit = true
-	for i = 2, room.height - 1, 2 do 
-		for j = 2, room.width - 1, 2 do
-			exit = exit and room.ways[i][j] ~= 0
+	for i = 2, maze.height - 1, 2 do 
+		for j = 2, maze.width - 1, 2 do
+			exit = exit and maze.ways[i][j] ~= 0
 		end
 	end
 	return exit
 end
 
-function room:mapWays()
+function maze:mapWays()
   self.ways = {}
   for i = 1, self.height do 
     self.ways[i] = {}
@@ -233,4 +235,4 @@ function room:mapWays()
   until count%1000 == 0 and mapEnded
 end
 
-return room
+return maze

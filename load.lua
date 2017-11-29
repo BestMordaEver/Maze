@@ -18,6 +18,7 @@ maze:mapWays()
 entity = love.filesystem.load('entity.lua')
 E = {}
 love.filesystem.load('hero.lua')()
+magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')
 S = {}
 
@@ -29,4 +30,3 @@ end
 update = love.filesystem.load('update.lua')(dt)
 keypressed = love.filesystem.load('keypressed.lua')(key)
 draw = love.filesystem.load('draw.lua')
-magic = love.filesystem.load('magic.lua')()

@@ -9,16 +9,12 @@ for i = -heightRange + hero.y, heightRange + hero.y do-- We draw only these, who
     if maze[i][j] == maze.wall then 
       love.graphics.setColor(255, 255, 255)
       love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
-    else 
-      --local val = 255 * maze.ways[i][j] / maze.ways.max
-      --love.graphics.setColor(val, val, val)
-      --love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
     end
   end
 end
 
 --hero:draw()
-love.graphics.setColor(0, 255, 255)
+if magic.earth.isActive then love.graphics.setColor(0, 255, 0) else love.graphics.setColor(0, 255, 255) end
 love.graphics.rectangle('fill', hero.x*clusterX + clusterX/4, hero.y*clusterY + clusterY/4, clusterX/2, clusterY/2)
 
 love.graphics.setColor(128, 0, 128, 128)
@@ -30,4 +26,9 @@ end
 if magic.air.isActive then 
   love.graphics.setColor(0, 255, 255)
   love.graphics.rectangle('fill', magic.air.x*clusterX, magic.air.y*clusterY, clusterX, clusterY)
+end
+
+if magic.fire.isActive then
+  love.graphics.setColor(255, 64, 0)
+  love.graphics.rectangle('fill', magic.fire.x*clusterX, magic.fire.y*clusterY, clusterX, clusterY)
 end

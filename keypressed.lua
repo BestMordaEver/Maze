@@ -13,6 +13,8 @@ local foo = function (k)
     magic.air:cast()
   elseif k == 'e' then
     magic.earth:cast()
+  elseif k == 'r' then
+    magic.fire:cast()
   end
 end
 return foo
