@@ -25,4 +25,6 @@ function hero:tryMovement(x, y)
   return true
 end
 
-hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 255, 127, 127, 250)
+hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 255, 255, 255, 500)
+--hero.light:setSmooth(0.7)
+--hero.light:setGlowSize(0.5)

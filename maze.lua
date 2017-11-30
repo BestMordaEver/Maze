@@ -171,7 +171,6 @@ function maze:Generate()
     for x, tile in pairs(maze[y]) do
       if tile == maze.wall then
         maze.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
-        maze.light[y][x]:setColor(0, 0, 0)
       end
     end
   end

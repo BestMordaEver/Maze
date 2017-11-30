@@ -2,9 +2,9 @@ love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}, 
-    refractionStrength = 1,
-    reflectionStrength = 1,
-    reflectionVisibility = 1,
+    refractionStrength = 0,
+    reflectionStrength = 0,
+    reflectionVisibility = 0,
     shadowblur = 0.2,
     glowBlur = 1})
 
