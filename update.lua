@@ -1,13 +1,16 @@
 local foo = function (dt)
-  for i, e in pairs(E) do 
+  for _, e in pairs(E) do 
     e.animation:wait(dt)
   end 
   magic:update(dt)
   
   time = time + dt
   if time > 0.5 then
-    for key, val in pairs(S) do
-      val:logic()
+    for _, shad in pairs(S) do
+      shad:logic()
+      if shad.isStunned then 
+        shad.timeStunned = shad.timeStunned + time end
+      if shad.timeStunned > shad.maxStunned then shad.isStunned = false end
     end
     time = 0
   end

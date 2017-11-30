@@ -1,13 +1,13 @@
 local foo = function (k)
   if k == 'escape' then 
     love.event.quit()
-  elseif k == 'right' then -- press to move
+  elseif k == 'd' then -- press to move
     hero:tryMovement(1, 0)
-  elseif k == 'left' then
+  elseif k == 'a' then
     hero:tryMovement(-1, 0)
-  elseif k == 'up' then
+  elseif k == 'w' then
     hero:tryMovement(0, -1)
-  elseif k == 'down' then
+  elseif k == 's' then
     hero:tryMovement(0, 1)
   elseif k == 'q' then
     magic.air:cast()
@@ -15,6 +15,8 @@ local foo = function (k)
     magic.earth:cast()
   elseif k == 'r' then
     magic.fire:cast()
+  elseif k == 'f' then 
+    magic.light:cast()
   end
 end
 return foo

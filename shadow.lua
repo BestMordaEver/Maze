@@ -1,5 +1,8 @@
 local shadow = entity()
 S[#S+1] = shadow
+shadow.isStunned = false
+shadow.timeStunned = 5
+shadow.maxStunned = 5
 
 local x, y
 
@@ -69,6 +72,19 @@ end
 
 function shadow:logic()
   local around = self:deadend()
+  
+  if magic.light.isActive then 
+    for key, _ in pairs(magic.light.souls) do
+      local _, _, x, y = key:find('(%d+) (%d+)')
+      x, y = tonumber(x), tonumber(y)
+      if self.x == x and self.y == y then 
+        self.isStunned = true
+        self.timeStunned = 0
+      end
+    end
+  end
+  
+  if self.isStunned then around = 0 end
   
   if around == 1 then
     if not self:step() then

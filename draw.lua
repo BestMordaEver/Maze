@@ -18,7 +18,7 @@ if magic.earth.isActive then love.graphics.setColor(0, 255, 0) else love.graphic
 love.graphics.rectangle('fill', hero.x*clusterX + clusterX/4, hero.y*clusterY + clusterY/4, clusterX/2, clusterY/2)
 
 love.graphics.setColor(128, 0, 128, 128)
-for num, shad in pairs(S) do
+for _, shad in pairs(S) do
   love.graphics.rectangle('fill', shad.x*clusterX, shad.y*clusterY, clusterX, clusterY)
   --shad:draw()
 end
@@ -31,4 +31,13 @@ end
 if magic.fire.isActive then
   love.graphics.setColor(255, 64, 0)
   love.graphics.rectangle('fill', magic.fire.x*clusterX, magic.fire.y*clusterY, clusterX, clusterY)
+end
+
+if magic.light.isActive then
+  love.graphics.setColor(255, 255, 255, 128)
+  for key, _ in pairs(magic.light.souls) do
+    local _, _, x, y = key:find('(%d+) (%d+)')
+    x, y = tonumber(x), tonumber(y)
+    love.graphics.rectangle('fill', x*clusterX, y*clusterY, clusterX, clusterY)
+  end
 end

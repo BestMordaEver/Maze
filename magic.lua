@@ -1,7 +1,7 @@
 local magic = {
   air = {
-    cdFinal = 10,
-    cd = 10,
+    cdFinal = 7,
+    cd = 7,
     x = 0,
     y = 0,
     isActive = false,
@@ -29,8 +29,8 @@ local magic = {
     charges = 0
   }, 
   earth = {
-    cdFinal = 20,
-    cd = 20,
+    cdFinal = 15,
+    cd = 15,
     isActive = false,
     cast = function(self)
       if self.cd == self.cdFinal then
@@ -55,21 +55,23 @@ local magic = {
     end
   }, 
   light = {
-    cdFinal = 10,
-    cd = 10,
+    cdFinal = 15,
+    cd = 15,
     isActive = false,
     stepsTaken = 8,
     stepsMax = 8,
+    time = 0,
     souls = {},
     cast = function(self)
       if self.cd == self.cdFinal then
         self.cd = 0
         self.isActive = true
-        stepsTaken = 0
-        if maze[hero.y][hero.x+1] == maze.pass then table.insert(souls, {x = hero.x+1, y = hero.y}) end
-        if maze[hero.y][hero.x-1] == maze.pass then table.insert(souls, {x = hero.x-1, y = hero.y}) end
-        if maze[hero.y+1][hero.x] == maze.pass then table.insert(souls, {x = hero.x, y = hero.y+1}) end
-        if maze[hero.y-1][hero.x] == maze.pass then table.insert(souls, {x = hero.x, y = hero.y-1}) end
+        self.stepsTaken = 0
+        self.souls = {}
+        if maze[hero.y][hero.x+1] == maze.pass or maze[hero.y][hero.x+1] == maze.room then self.souls[hero.x+1 .. ' ' .. hero.y] = true end
+        if maze[hero.y][hero.x-1] == maze.pass or maze[hero.y][hero.x-1] == maze.room then self.souls[hero.x-1 .. ' ' .. hero.y] = true end
+        if maze[hero.y+1][hero.x] == maze.pass or maze[hero.y+1][hero.x] == maze.room then self.souls[hero.x .. ' ' .. hero.y+1] = true end
+        if maze[hero.y-1][hero.x] == maze.pass or maze[hero.y-1][hero.x] == maze.room then self.souls[hero.x .. ' ' .. hero.y-1] = true end
       end
     end
     }, 
@@ -81,8 +83,31 @@ local magic = {
     self.light.cd = self.light.cd >= self.light.cdFinal and self.light.cdFinal or self.light.cd + dt
     
     if self.air.cd > self.air.timeActive then self.air.isActive = false end
-    if maze[hero.y][hero.x] == maze.wall then self.earth.isActive = false end
+    
+    if self.light.stepsTaken == self.light.stepsMax then 
+      self.light.isActive = false 
+    end
+    
+    if self.light.isActive then
+      self.light.time = self.light.time + dt
+      if self.light.time > 0.2 then 
+        self.light.stepsTaken = self.light.stepsTaken + 1
+        self.light.time = 0
+        local T = {}
+        for key, val in pairs(self.light.souls) do 
+          T[key] = val
+        end
+        for key, _ in pairs(T) do
+          local _, _, x, y = string.find(key, '(%d+) (%d+)')
+          x, y = tonumber(x), tonumber(y)
+          if maze[y][x+1] == maze.pass or maze[y][x+1] == maze.room then self.light.souls[x+1 .. ' ' .. y] = true end
+          if maze[y][x-1] == maze.pass or maze[y][x-1] == maze.room then self.light.souls[x-1 .. ' ' .. y] = true end
+          if maze[y+1][x] == maze.pass or maze[y+1][x] == maze.room then self.light.souls[x .. ' ' .. y+1] = true end
+          if maze[y-1][x] == maze.pass or maze[y-1][x] == maze.room then self.light.souls[x .. ' ' .. y-1] = true end
+        end
+      end
+    end
   end
-  }
+}
 
 return magic
