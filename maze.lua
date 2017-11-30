@@ -1,5 +1,6 @@
 local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0, sanity = 0, -- Zero for no cycles, use wisely
-	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, chestUsed = 5, key = 6}
+	wall = 0, pass = 1, exit = 2, room = 3, chest = 4, chestUsed = 5, key = 6,
+  light = {}}
 
 function maze:deadend(x,y) -- Checking for deadend
 	local count = 0
@@ -164,6 +165,16 @@ function maze:Generate()
 	end
 
 	self[self.exitY][self.exitX] = self.exit
+  
+  for y=1, maze.height do
+    maze.light[y] = {}
+    for x, tile in pairs(maze[y]) do
+      if tile == maze.wall then
+        maze.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
+        maze.light[y][x]:setColor(0, 0, 0)
+      end
+    end
+  end
 end
 
 function maze:GenerateEmpty()

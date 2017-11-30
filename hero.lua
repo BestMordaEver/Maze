@@ -24,3 +24,5 @@ function hero:tryMovement(x, y)
   end
   return true
 end
+
+hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 255, 127, 127, 250)

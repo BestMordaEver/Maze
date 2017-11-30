@@ -3,6 +3,10 @@ local entity = love.filesystem.load('animated.lua')()
 function entity:moveRel(x, y)
   self.x = self.x + x
   self.y = self.y + y
+  if self.light then
+    self.light.x = self.light.x + x*clusterX
+    self.light.y = self.light.y + y*clusterY
+  end
 end
 
 function entity:turnLeft()
