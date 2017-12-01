@@ -1,8 +1,11 @@
 local foo = function (dt)
   for _, e in pairs(E) do 
     e.animation:wait(dt)
+    --e:update(dt)
   end 
+  
   magic:update(dt)
+  hero:update(dt)
   
   time = time + dt
   if time > 0.5 then

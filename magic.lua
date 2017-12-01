@@ -72,6 +72,8 @@ local magic = {
         self.isActive = true
         self.stepsTaken = 0
         self.souls = {}
+        hero.x = tonumber(tostring(hero.x))
+        hero.y = tonumber(tostring(hero.y))
         if maze[hero.y][hero.x+1] == maze.pass or maze[hero.y][hero.x+1] == maze.room then 
           if not self.souls[hero.x+1 .. ' ' .. hero.y] then
             self.soulsL[hero.x+1 .. ' ' .. hero.y] = light:newLight((hero.x+1.5)*clusterX, (hero.y)*clusterY, 255, 255, 255, 250) 

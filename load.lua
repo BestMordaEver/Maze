@@ -1,15 +1,15 @@
-love.window.setMode(0, 0, {fullscreen = false})
+--love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}, 
-    refractionStrength = 0,
-    reflectionStrength = 0,
-    reflectionVisibility = 0,
-    shadowblur = 0.2,
-    glowBlur = 1})
+  refractionStrength = 0,
+  reflectionStrength = 0,
+  reflectionVisibility = 0,
+  shadowblur = 0.2,
+  glowBlur = 1})
 
 camera = love.filesystem.load('camera.lua')()
-
+print('camera ok')
 clusterX = 45
 clusterY = 45
 time = 0
@@ -20,14 +20,19 @@ heightRange = math.floor(height/clusterY/2+2) -- so it will fit the monitor
 maze = love.filesystem.load('maze.lua')()
 maze:new(51, 51)
 maze:Generate()
+print('maze ok')
 maze:mapWays()
+print('map ok')
 
 entity = love.filesystem.load('entity.lua')
 E = {}
+print('entity ok')
 love.filesystem.load('hero.lua')()
+print('hero ok')
 magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')
 S = {}
+print('shitheads ok')
 
 for i=1, maze.roomCount do
   shadow()

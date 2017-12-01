@@ -1,7 +1,9 @@
 Light = require 'Light' -- God bless this man
 
 function love.load()
+  print('loading')
 	love.filesystem.load('load.lua')()
+  print('loaded')
 end
 
 function love.keypressed(key)
