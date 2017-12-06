@@ -6,7 +6,8 @@ hero.animation:setAnimation('idle')
 hero.speed = 0.2
 function hero:tryMovement(x, y)
   if self.smoothX ~= 0 or self.smoothY ~= 0 then x, y = 0, 0 end
-  if magic.earth.isActive and not (self.y+y < 2 or self.x+x < 2 or self.y+y > maze.height - 1 or self.x+x > maze.width - 1) then 
+  if magic.earth.isActive and (x ~= 0 or y ~= 0) and 
+    not (self.y+y < 2 or self.x+x < 2 or self.y+y > maze.height - 1 or self.x+x > maze.width - 1) then 
     magic.earth.isActive = false
     return self:tryMovement(2*x, 2*y)
   end
@@ -46,4 +47,4 @@ function hero:update(dt)
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
-hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 255, 255, 255, 500)
+hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 196, 196, 196, 500)

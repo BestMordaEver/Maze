@@ -32,12 +32,12 @@ print('hero ok')
 magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')
 S = {}
-print('shitheads ok')
 
 for i=1, maze.roomCount do
   shadow()
   if S[i] == nil then break end
 end
+print('shitheads ok')
 
 update = love.filesystem.load('update.lua')(dt)
 keypressed = love.filesystem.load('keypressed.lua')(key)

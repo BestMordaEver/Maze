@@ -3,7 +3,7 @@ S[#S+1] = shadow
 shadow.isStunned = false
 shadow.timeStunned = 5
 shadow.maxStunned = 5
-shadow.speed = 0.1
+shadow.speed = 0.04
 
 local x, y
 
