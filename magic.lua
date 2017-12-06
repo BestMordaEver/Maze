@@ -129,7 +129,6 @@ local magic = {
         for key, _ in pairs(T) do
           local _, _, x, y = string.find(key, '(%d+) (%d+)')
           x, y = tonumber(x), tonumber(y)
-          print(key)
           self.light.soulsL[key]:setVisible(false)
           if maze[y][x+1] == maze.pass or maze[y][x+1] == maze.room then 
             if not self.light.souls[x+1 .. ' ' .. y] then

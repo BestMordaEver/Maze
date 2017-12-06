@@ -3,6 +3,7 @@ S[#S+1] = shadow
 shadow.isStunned = false
 shadow.timeStunned = 5
 shadow.maxStunned = 5
+shadow.speed = 0.1
 
 local x, y
 
@@ -17,6 +18,8 @@ repeat
 until maze[y][x] == maze.pass and b
 
 function shadow:tryMovement(x, y)
+  self.y = tonumber(tostring(self.y))
+  self.x = tonumber(tostring(self.x))
   if self.y + y == magic.fire.y and self.x + x == magic.fire.x then 
     self:turnAround()
     return false
@@ -71,6 +74,8 @@ function shadow:deadend()
 end
 
 function shadow:logic()
+  self.x = tonumber(tostring(self.x))
+  self.y = tonumber(tostring(self.y))
   local around = self:deadend()
   
   if magic.light.isActive then 
@@ -122,6 +127,17 @@ function shadow:logic()
     end
     self:step()
   end
+end
+
+function shadow:update(dt)
+  if self.smoothX == 0 and self.smoothY == 0 then self:logic() end
+  if self.isStunned then 
+    self.timeStunned = self.timeStunned + dt end
+  if self.timeStunned > self.maxStunned then self.isStunned = false end
+  if math.abs(self.smoothX) > self.speed/2 then self.x = self.smoothX < 0 and self.x - self.speed or self.x + self.speed end
+  if math.abs(self.smoothY) > self.speed/2 then self.y = self.smoothY < 0 and self.y - self.speed or self.y + self.speed end
+  self.smoothX = math.abs(self.smoothX) > self.speed/2 and (self.smoothX > 0 and self.smoothX - self.speed or self.smoothX + self.speed) or 0
+  self.smoothY = math.abs(self.smoothY) > self.speed/2 and (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
 shadow.animation:newAnimation('moving', 0.1)

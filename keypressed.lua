@@ -1,14 +1,6 @@
 local foo = function (k)
   if k == 'escape' then 
     love.event.quit()
-  elseif k == 'd' then -- press to move
-    hero:tryMovement(1, 0)
-  elseif k == 'a' then
-    hero:tryMovement(-1, 0)
-  elseif k == 'w' then
-    hero:tryMovement(0, -1)
-  elseif k == 's' then
-    hero:tryMovement(0, 1)
   elseif k == 'q' then
     magic.air:cast()
   elseif k == 'e' then

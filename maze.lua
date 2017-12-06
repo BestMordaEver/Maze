@@ -166,11 +166,11 @@ function maze:Generate()
 
 	self[self.exitY][self.exitX] = self.exit
   
-  for y=1, maze.height do
-    maze.light[y] = {}
+  for y=1, self.height do
+    self.light[y] = {}
     for x, tile in pairs(maze[y]) do
-      if tile == maze.wall then
-        maze.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
+      if tile == self.wall then
+        self.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
       end
     end
   end
@@ -182,6 +182,15 @@ function maze:GenerateEmpty()
 			self[i][j] = self.pass
 		end 
 	end
+  
+  for y=1, self.height do
+    self.light[y] = {}
+    for x, tile in pairs(maze[y]) do
+      if tile == self.wall then
+        self.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
+      end
+    end
+  end
 end
 
 local function mapEnded()
