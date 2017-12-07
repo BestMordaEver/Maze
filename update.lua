@@ -16,10 +16,10 @@ local foo = function (dt)
   local _, y = math.modf(hero.y)
   
   if x == 0 and y == 0 then 
-    hero:tryMovement(lvX, 0) 
-    hero:tryMovement(0, lvY)
+    if flip then hero:tryMovement(lvX, 0) end
+    if not flip then hero:tryMovement(0, lvY) end
   end
-  
+  flip = not flip
   camera:setPosition((hero.x+1)*clusterX - width/2, (hero.y+1)*clusterY - height/2)
 
 end

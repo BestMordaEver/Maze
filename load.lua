@@ -12,7 +12,7 @@ camera = love.filesystem.load('camera.lua')()
 print('camera ok')
 clusterX = 45
 clusterY = 45
-time = 0
+flip = true
 
 widthRange = math.floor(width/clusterX/2+2) -- This is how much game has to draw
 heightRange = math.floor(height/clusterY/2+2) -- so it will fit the monitor
