@@ -16,9 +16,17 @@ function hero:tryMovement(x, y)
   local shit = maze[self.y + y][self.x + x]
   if shit == maze.wall then
     return false
-  elseif shit == maze.pass then
+  elseif shit == maze.pass or shit == maze.room or shit == maze.decoKey then
     self:moveRel(x, y)
-  elseif shit == maze.room then
+  elseif shit == maze.chest then
+    if magic.water.charges ~= 0 then
+      maze[self.y + y][self.x + x] = maze.chestUsed
+      magic.water.charges = magic.water.charges - 1
+    end
+    return false
+  elseif shit == maze.key then
+    maze[self.y + y][self.x + x] = maze.decoKey
+    magic.water.charges = magic.water.charges + 1
     self:moveRel(x, y)
   elseif shit == maze.exit then
     love.event.quit()
@@ -47,4 +55,6 @@ function hero:update(dt)
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
-hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 196, 196, 196, 500)
+hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 196, 196, 196, 400)
+hero.light:setGlowSize(0)
+hero.light:setGlowStrength(0)

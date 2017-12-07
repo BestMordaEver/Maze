@@ -23,6 +23,7 @@ maze:Generate()
 print('maze ok')
 maze:mapWays()
 print('map ok')
+maze:decorate()
 
 entity = love.filesystem.load('entity.lua')
 E = {}

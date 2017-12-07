@@ -1,5 +1,3 @@
-love.graphics.setColor(255,255,255)
-
 for i = -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do-- We draw only these, who fit in screen  
 	i = i < 1 and 1 or i
 	if i == maze.height + 1 then break end
@@ -9,6 +7,20 @@ for i = -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do--
     if maze[i][j] == maze.wall then 
       --love.graphics.setColor(255, 255, 255)
       --love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+    elseif maze[i][j] == maze.chest then
+      love.graphics.setColor(196, 75, 0)
+      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+    elseif maze[i][j] == maze.chestUsed then
+      love.graphics.setColor(196, 75, 0)
+      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+      love.graphics.setColor(0, 0, 0)
+      love.graphics.rectangle('fill', j*clusterX, i*clusterY+clusterY/3, clusterX, clusterY/10)
+    elseif maze[i][j] == maze.key then
+      love.graphics.setColor(0, 128, 196)
+      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+      elseif maze[i][j] == maze.decoKey then
+      love.graphics.setColor(0, 64, 128)
+      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
     else
       love.graphics.setColor(64, 64, 64)
       love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
@@ -32,8 +44,8 @@ if magic.air.isActive then
 end
 
 if magic.fire.isActive then
-  --love.graphics.setColor(255, 64, 0)
-  --love.graphics.rectangle('fill', magic.fire.x*clusterX, magic.fire.y*clusterY, clusterX, clusterY)
+  love.graphics.setColor(255, 128, 0, 128)
+  love.graphics.rectangle('fill', magic.fire.x*clusterX, magic.fire.y*clusterY, clusterX, clusterY)
 end
 
 if magic.light.isActive then

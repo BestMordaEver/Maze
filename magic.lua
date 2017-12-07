@@ -159,6 +159,6 @@ local magic = {
     end
   end
 }
-magic.fire.light:setColor(255, 64, 0)
+magic.fire.light:setColor(255, 128, 0)
 
 return magic
