@@ -1,4 +1,4 @@
---love.window.setMode(0, 0, {fullscreen = false})
+love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}, 
@@ -40,6 +40,6 @@ for i=1, maze.roomCount do
 end
 print('shitheads ok')
 
-update = love.filesystem.load('update.lua')(dt)
-keypressed = love.filesystem.load('keypressed.lua')(key)
+update = love.filesystem.load('update.lua')()
+keypressed = love.filesystem.load('keypressed.lua')()
 draw = love.filesystem.load('draw.lua')
