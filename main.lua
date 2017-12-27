@@ -11,8 +11,11 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-  light:update(dt)
-  update(dt)
+  time = time + dt
+  if time > 0.033 then
+    update(time)
+    time = time - 0.033
+  end
 end
 
 function love.draw()

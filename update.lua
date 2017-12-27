@@ -1,4 +1,5 @@
 local foo = function (dt)
+  light:update(dt)
   for _, e in pairs(E) do 
     e.animation:wait(dt)
     e:update(dt)
@@ -21,6 +22,8 @@ local foo = function (dt)
   end
   flip = not flip
   camera:setPosition((hero.x+1)*clusterX - width/2, (hero.y+1)*clusterY - height/2)
+  
+  love.window.setTitle(love.timer.getFPS())
 
 end
 return foo

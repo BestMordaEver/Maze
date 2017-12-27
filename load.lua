@@ -13,6 +13,7 @@ print('camera ok')
 clusterX = 45
 clusterY = 45
 flip = true
+time = 0
 
 widthRange = math.floor(width/clusterX/2+2) -- This is how much game has to draw
 heightRange = math.floor(height/clusterY/2+2) -- so it will fit the monitor
