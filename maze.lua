@@ -134,9 +134,7 @@ function maze:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-<<<<<<< HEAD
   print('digging ok')
-=======
   
   for i = 3, maze.height-2, 2 do -- To erase insanity results
     for j = 3, maze.width-2, 2 do
@@ -146,7 +144,6 @@ function maze:Generate()
     end
   end
 
->>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
  	-- Here is end
 	if direction == 0 then
 		self.exitX = self.width
@@ -164,17 +161,10 @@ function maze:Generate()
 
 	self[self.exitY*self.width + self.exitX] = self.exit
   
-  for y=1, self.height do
-<<<<<<< HEAD
-    self.light[y] = {}
-    for x, tile in pairs(maze[y]) do
-      if tile == self.wall then
-        self.light[y][x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
-=======
+  for y=1, self.height do   
     for x=1, self.width do
       if self[y*self.width + x] == self.wall then
-        self.light[y*self.width + x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
->>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
+        self.light[y*self.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.y, cluster.y)
       end
     end
   end
@@ -189,16 +179,9 @@ function maze:GenerateEmpty()
 	end
   
   for y=1, self.height do
-<<<<<<< HEAD
-    self.light[y] = {}
-    for x, tile in pairs(maze[y]) do
-      if tile == self.wall then
-        self.light[y][x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
-=======
     for x=1, self.width do
       if self[y*self.width + x] == self.wall then
-        self.light[y*self.width + x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
->>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
+        self.light[y*self.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
       end
     end
   end

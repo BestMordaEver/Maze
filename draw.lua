@@ -6,35 +6,19 @@ for i = -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do--
 		if j == maze.width + 1 then break end 
     if maze[i*maze.width + j] == maze.wall then 
       --love.graphics.setColor(255, 255, 255)
-<<<<<<< HEAD
       --love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-    elseif maze[i][j] == maze.chest then
-      love.graphics.setColor(196, 75, 0)
-      love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-    elseif maze[i][j] == maze.chestUsed then
-=======
-      --love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
     elseif maze[i*maze.width + j] == maze.chest then
       love.graphics.setColor(196, 75, 0)
-      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+      love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
     elseif maze[i*maze.width + j] == maze.chestUsed then
->>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
       love.graphics.setColor(196, 75, 0)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
       love.graphics.setColor(0, 0, 0)
-<<<<<<< HEAD
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y+cluster.y/3, cluster.x, cluster.y/10)
-    elseif maze[i][j] == maze.key then
-      love.graphics.setColor(0, 128, 196)
-      love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-      elseif maze[i][j] == maze.decoKey then
-=======
-      love.graphics.rectangle('fill', j*clusterX, i*clusterY+clusterY/3, clusterX, clusterY/10)
     elseif maze[i*maze.width + j] == maze.key then
       love.graphics.setColor(0, 128, 196)
-      love.graphics.rectangle('fill', j*clusterX, i*clusterY, clusterX, clusterY)
+      love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
     elseif maze[i*maze.width + j] == maze.decoKey then
->>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
       love.graphics.setColor(0, 64, 128)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
     else
