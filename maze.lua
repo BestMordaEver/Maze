@@ -48,7 +48,7 @@ function maze:Generate()
 
 	local x,y
 
-	local roomCount = math.floor((self.width * self.height) / 80)
+	local roomCount = math.floor(math.sqrt(self.width * self.height))
 	local check = 0
   
 	for l = 1, roomCount do -- Room pre-generation routine
@@ -101,7 +101,7 @@ function maze:Generate()
 			
 		until b
 	end 
-  
+  print('rooms ok ' .. tostring(self.roomCount))
 	x, y, check = 2, 2, 0
 	local direction = 0
 	self[y][x] = self.pass -- Droppin`
@@ -136,15 +136,7 @@ function maze:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-  
-  for i = 3, maze.height-2, 2 do -- To erase insanity results
-    for j = 3, maze.width-2, 2 do
-      if maze[i][j+1] == maze.pass and maze[i][j-1] == maze.pass and maze[i+1][j] == maze.pass and maze[i-1][j] == maze.pass then
-        maze[i][j] = maze.pass
-      end
-    end
-  end
-
+  print('digging ok')
  	-- Here is end
 	if direction == 0 then
 		self.exitX = self.width
@@ -166,10 +158,11 @@ function maze:Generate()
     self.light[y] = {}
     for x, tile in pairs(maze[y]) do
       if tile == self.wall then
-        self.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
+        self.light[y][x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
       end
     end
   end
+  print('lights ok')
 end
 
 function maze:GenerateEmpty()
@@ -183,7 +176,7 @@ function maze:GenerateEmpty()
     self.light[y] = {}
     for x, tile in pairs(maze[y]) do
       if tile == self.wall then
-        self.light[y][x] = light:newRectangle((x+0.5)*clusterX, (y+0.5)*clusterY, clusterX, clusterY)
+        self.light[y][x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
       end
     end
   end

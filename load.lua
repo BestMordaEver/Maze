@@ -1,24 +1,28 @@
 --love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
-light = Light({ambient = {0, 0, 0}, 
-  refractionStrength = 0,
-  reflectionStrength = 0,
-  reflectionVisibility = 0,
-  shadowblur = 0.2,
-  glowBlur = 1})
+light = Light({ambient = {0, 0, 0}})
 
 camera = love.filesystem.load('camera.lua')()
 print('camera ok')
-clusterX = 45
-clusterY = 45
+cluster = {}
+cluster.x = 45
+cluster.y = 45
+cluster.xScale = 1
+cluster.yScale = 1
+cluster.maxX = 1
+cluster.maxY = 1
+cluster.minX = 0.6
+cluster.minY = 0.6
 flip = true
+love.graphics.scale(0.5, 0.5)
 
-widthRange = math.floor(width/clusterX/2+2) -- This is how much game has to draw
-heightRange = math.floor(height/clusterY/2+2) -- so it will fit the monitor
+widthRange = math.floor(width/cluster.x/2+1) -- This is how much game has to draw
+heightRange = math.floor(height/cluster.y/2+1) -- so it will fit the monitor
+time = 0
 
 maze = love.filesystem.load('maze.lua')()
-maze:new(51, 51)
+maze:new(101, 101)
 maze:Generate()
 print('maze ok')
 maze:mapWays()

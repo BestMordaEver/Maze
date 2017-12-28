@@ -45,7 +45,7 @@ function animated.animation:getAnimation()
 end
 
 function animated:draw()
-	love.graphics.draw(self.animation[self.animation.current].imgs[self.animation[self.animation.current].tick], self.x*clusterX, self.y*clusterY)
+	love.graphics.draw(self.animation[self.animation.current].imgs[self.animation[self.animation.current].tick], self.x*cluster.x, self.y*cluster.y)
 end
 
 return animated

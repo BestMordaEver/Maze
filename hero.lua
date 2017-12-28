@@ -42,11 +42,11 @@ function hero:update(dt)
   
   if math.abs(self.smoothX) > self.speed/2 then 
     self.x = self.smoothX < 0 and self.x - self.speed or self.x + self.speed 
-    self.light.x = self.smoothX < 0 and self.light.x - self.speed*clusterX or self.light.x + self.speed*clusterX 
+    self.light.x = self.smoothX < 0 and self.light.x - self.speed*cluster.x or self.light.x + self.speed*cluster.x 
   end
   if math.abs(self.smoothY) > self.speed/2 then 
     self.y = self.smoothY < 0 and self.y - self.speed or self.y + self.speed 
-    self.light.y = self.smoothY < 0 and self.light.y - self.speed*clusterY or self.light.y + self.speed*clusterY 
+    self.light.y = self.smoothY < 0 and self.light.y - self.speed*cluster.y or self.light.y + self.speed*cluster.y 
   end
     
   self.smoothX = math.abs(self.smoothX) > self.speed/2 and 
@@ -55,6 +55,6 @@ function hero:update(dt)
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
-hero.light = light:newLight((hero.x+0.5)*clusterX, (hero.y+0.5)*clusterY, 196, 196, 196, 400)
+hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 196, 196, 196, 400)
 hero.light:setGlowSize(0)
 hero.light:setGlowStrength(0)
