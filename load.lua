@@ -1,4 +1,4 @@
---love.window.setMode(0, 0, {fullscreen = false})
+love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}})
@@ -15,7 +15,11 @@ cluster.maxY = 1
 cluster.minX = 0.6
 cluster.minY = 0.6
 flip = true
+<<<<<<< HEAD
 love.graphics.scale(0.5, 0.5)
+=======
+time = 0
+>>>>>>> 4da3496c116f3cad7735671197461f5aaf4e6db9
 
 widthRange = math.floor(width/cluster.x/2+1) -- This is how much game has to draw
 heightRange = math.floor(height/cluster.y/2+1) -- so it will fit the monitor
@@ -44,6 +48,6 @@ for i=1, maze.roomCount do
 end
 print('shitheads ok')
 
-update = love.filesystem.load('update.lua')(dt)
-keypressed = love.filesystem.load('keypressed.lua')(key)
+update = love.filesystem.load('update.lua')()
+keypressed = love.filesystem.load('keypressed.lua')()
 draw = love.filesystem.load('draw.lua')
