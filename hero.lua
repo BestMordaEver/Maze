@@ -15,19 +15,19 @@ function hero:tryMovement(x, y)
   self.y = tonumber(tostring(self.y))
   self.x = tonumber(tostring(self.x))
   
-  local shit = maze[(self.y + y)*maze.width + self.x + x]
+  local shit = maze.content[(self.y + y)*maze.width + self.x + x]
   if shit == maze.wall then
     return false
   elseif shit == maze.pass or shit == maze.room or shit == maze.decoKey then
     self:moveRel(x, y)
   elseif shit == maze.chest then
     if magic.water.charges ~= 0 then
-      maze[(self.y + y)*maze.width + self.x + x] = maze.chestUsed
+      maze.content[(self.y + y)*maze.width + self.x + x] = maze.chestUsed
       magic.water.charges = magic.water.charges - 1
     end
     return false
   elseif shit == maze.key then
-    maze[(self.y + y)*maze.width + self.x + x] = maze.decoKey
+    maze.content[(self.y + y)*maze.width + self.x + x] = maze.decoKey
     magic.water.charges = magic.water.charges + 1
     self:moveRel(x, y)
   elseif shit == maze.exit then

@@ -4,21 +4,21 @@ for i = -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do--
 	for j = -widthRange + math.floor(hero.x), widthRange + math.floor(hero.x)  do
 		j = j < 1 and 1 or j
 		if j == maze.width + 1 then break end 
-    if maze[i*maze.width + j] == maze.wall then 
+    if maze.content[i*maze.width + j] == maze.wall then 
       --love.graphics.setColor(255, 255, 255)
       --love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-    elseif maze[i*maze.width + j] == maze.chest then
+    elseif maze.content[i*maze.width + j] == maze.chest then
       love.graphics.setColor(196, 75, 0)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-    elseif maze[i*maze.width + j] == maze.chestUsed then
+    elseif maze.content[i*maze.width + j] == maze.chestUsed then
       love.graphics.setColor(196, 75, 0)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
       love.graphics.setColor(0, 0, 0)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y+cluster.y/3, cluster.x, cluster.y/10)
-    elseif maze[i*maze.width + j] == maze.key then
+    elseif maze.content[i*maze.width + j] == maze.key then
       love.graphics.setColor(0, 128, 196)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-    elseif maze[i*maze.width + j] == maze.decoKey then
+    elseif maze.content[i*maze.width + j] == maze.decoKey then
       love.graphics.setColor(0, 64, 128)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
     else

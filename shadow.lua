@@ -15,7 +15,7 @@ repeat
     b = b and (S[i] == shadow or (math.abs(maze.ways[y*maze.width + x] - maze.ways[S[i].y*maze.width + S[i].x]) > 2))
   end
   b = b and math.abs(maze.ways[y*maze.width + x] - maze.ways[hero.y*maze.width + hero.x]) > 3
-until maze[y*maze.width + x] == maze.pass and b
+until maze.content[y*maze.width + x] == maze.pass and b
 
 function shadow:tryMovement(x, y)
   self.y = tonumber(tostring(self.y))
@@ -24,7 +24,7 @@ function shadow:tryMovement(x, y)
     self:turnAround()
     return false
   end
-  local shit = maze[(self.y + y)*maze.width + self.x + x]
+  local shit = maze.content[(self.y + y)*maze.width + self.x + x]
   if shit == maze.wall or shit == maze.room or shit == maze.exit then
     return false
   elseif shit == maze.pass or shit == maze.key or shit == maze.decoKey then
@@ -58,16 +58,16 @@ shadow:ready()
 function shadow:deadend()
 	local count = 0
 
-	if maze[self.y*maze.width + self.x + 1] >= maze.pass then 
+	if maze.content[self.y*maze.width + self.x + 1] >= maze.pass then 
 		count = count + 1 
 	end
-	if maze[(self.y + 1)*maze.width + self.x] >= maze.pass then 
+	if maze.content[(self.y + 1)*maze.width + self.x] >= maze.pass then 
 		count = count + 1 
 	end
-	if maze[self.y*maze.width + self.x - 1] >= maze.pass then 
+	if maze.content[self.y*maze.width + self.x - 1] >= maze.pass then 
 		count = count + 1 
 	end
-	if maze[(self.y - 1)*maze.width + self.x] >= maze.pass then 
+	if maze.content[(self.y - 1)*maze.width + self.x] >= maze.pass then 
 		count = count + 1 
 	end
 	return count

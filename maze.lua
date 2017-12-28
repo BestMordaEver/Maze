@@ -1,21 +1,21 @@
 local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0,
 	wall = 0, pass = 5, exit = 2, room = 3, chest = 4, chestUsed = 1, key = 6,
   decoKey = 7,
-  light = {}}
+  light = {}, content = {}}
 
 function maze:deadend(x,y) -- Checking for deadend
 	local count = 0
 
-	if x == self.width - 1 or self[y*self.width + x + 2] ~= self.wall then 
+	if x == self.width - 1 or self.content[y*self.width + x + 2] ~= self.wall then 
 		count = count + 1 
 	end
-	if y == self.height - 1 or self[(y + 2)*self.width + x] ~= self.wall then 
+	if y == self.height - 1 or self.content[(y + 2)*self.width + x] ~= self.wall then 
 		count = count + 1 
 	end
-	if x == 2 or self[y*self.width + x - 2] ~= self.wall then 
+	if x == 2 or self.content[y*self.width + x - 2] ~= self.wall then 
 		count = count + 1 
 	end
-	if y == 2 or self[(y - 2)*self.width + x] ~= self.wall then 
+	if y == 2 or self.content[(y - 2)*self.width + x] ~= self.wall then 
 		count = count + 1 
 	end
 	return count == 4
@@ -25,10 +25,21 @@ local function ended() -- Checking if room is exited
 	local exit = true
 	for i = 2, maze.height - 1, 2 do 
 		for j = 2, maze.width - 1, 2 do
-			if maze[i*maze.width + j] == maze.wall then exit = false end 
+			if maze.content[i*maze.width + j] == maze.wall then exit = false end 
 		end
 	end
 	return exit
+end
+
+local function AddLights()
+  local t = love.timer.getTime()
+  for y=1, maze.height do
+    for x=1, maze.width do
+      if maze.content[y*maze.width + x] == maze.wall then
+        maze.light[y*maze.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
+      end
+    end
+  end
 end
 
 function maze:new(width, height)
@@ -37,7 +48,7 @@ function maze:new(width, height)
 
 	for i=1, self.height do
     for j=1, self.width do
-      self[i*self.width + j] = self.wall
+      self.content[i*self.width + j] = self.wall
     end
 	end
 end
@@ -67,7 +78,7 @@ function maze:Generate()
       
 			for i = y - rHeight/2 - 2, y + rHeight/2 + 2 do -- Check for touching another rooms
 				for j = x - rWidth/2 - 2, x + rWidth/2 + 2  do 
-					if self[i*self.width + j] == self.room then 
+					if self.content[i*self.width + j] == self.room then 
 						i = y + rHeight/2
 						j = x + rWidth/2
 						b = false
@@ -78,20 +89,20 @@ function maze:Generate()
 			if b then -- If we didn`t touch room - this happens
 				for i = y - rHeight/2, y + rHeight/2 do 
 					for j = x - rWidth/2, x + rWidth/2 do 
-						self[i*self.width + j] = self.room
+						self.content[i*self.width + j] = self.room
 					end 
 				end 
-        self[y*self.width + x] = self.chest
+        self.content[y*self.width + x] = self.chest
         
 				b = love.math.random(0, 3) -- Exit position
 				if b == 0 then 
-					self[(y + rHeight/2 + 1)*self.width + x - rWidth/2 + 2*(love.math.random(1, rWidth/2))] = self.room
+					self.content[(y + rHeight/2 + 1)*self.width + x - rWidth/2 + 2*(love.math.random(1, rWidth/2))] = self.room
 				elseif b == 1 then 
-					self[(y - rHeight/2 - 1)*self.width + x - rWidth/2 + 2*(love.math.random(1, rWidth/2))] = self.room
+					self.content[(y - rHeight/2 - 1)*self.width + x - rWidth/2 + 2*(love.math.random(1, rWidth/2))] = self.room
 				elseif b == 2 then 
-					self[(y - rHeight/2 + 2*(love.math.random(1, rHeight/2)))*self.width + x + rWidth/2 + 1] = self.room
+					self.content[(y - rHeight/2 + 2*(love.math.random(1, rHeight/2)))*self.width + x + rWidth/2 + 1] = self.room
 				elseif b == 3 then 
-					self[(y - rHeight/2 + 2*(love.math.random(1, rHeight/2)))*self.width + x - rWidth/2 - 1] = self.room
+					self.content[(y - rHeight/2 + 2*(love.math.random(1, rHeight/2)))*self.width + x - rWidth/2 - 1] = self.room
 				end
         
         self.roomCount = self.roomCount + 1
@@ -99,47 +110,45 @@ function maze:Generate()
 			
 		until b
 	end 
-  print('rooms ok ' .. tostring(self.roomCount))
 	x, y, check = 2, 2, 0
 	local direction = 0
-	self[y*self.width + x] = self.pass -- Droppin`
+	self.content[y*self.width + x] = self.pass -- Droppin`
 
 	repeat -- Main cycle
 
 		direction = love.math.random(0,3)
 								-- Jumpin`
-		if direction == 0 and x ~= self.width - 1 and self[y*self.width + x+2] ~= self.room and self[y*self.width + x+2] ~= self.pass then 
-			self[y*self.width + x+1] = self.pass 
+		if direction == 0 and x ~= self.width - 1 and self.content[y*self.width + x+2] ~= self.room and self.content[y*self.width + x+2] ~= self.pass then 
+			self.content[y*self.width + x+1] = self.pass 
 			x = x + 2 
-		elseif direction == 1 and x ~= 2 and self[y*self.width + x-2] ~= self.room and self[y*self.width + x-2] ~= self.pass then 
-			self[y*self.width + x-1] = self.pass 
+		elseif direction == 1 and x ~= 2 and self.content[y*self.width + x-2] ~= self.room and self.content[y*self.width + x-2] ~= self.pass then 
+			self.content[y*self.width + x-1] = self.pass 
 			x = x - 2 
-		elseif direction == 2 and y ~= self.height - 1 and self[(y+2)*self.width + x] ~= self.room and self[(y+2)*self.width + x] ~= self.pass then 
-			self[(y+1)*self.width + x] = self.pass 
+		elseif direction == 2 and y ~= self.height - 1 and self.content[(y+2)*self.width + x] ~= self.room and self.content[(y+2)*self.width + x] ~= self.pass then 
+			self.content[(y+1)*self.width + x] = self.pass 
 			y = y + 2
-		elseif direction == 3 and y ~= 2 and self[(y-2)*self.width + x] ~= self.room and self[(y-2)*self.width + x] ~= self.pass then 
-			self[(y-1)*self.width + x] = self.pass 
+		elseif direction == 3 and y ~= 2 and self.content[(y-2)*self.width + x] ~= self.room and self.content[(y-2)*self.width + x] ~= self.pass then 
+			self.content[(y-1)*self.width + x] = self.pass 
 			y = y - 2
 	 		end
 		 	
-		self[y*self.width + x] = self.pass -- Diggin`
+		self.content[y*self.width + x] = self.pass -- Diggin`
 	
 		if self:deadend(x,y) then -- Gettin` dafuq outta here
 		repeat	
 	 		x = 2 * love.math.random(1, (self.width - 1) / 2)
 	 		y = 2 * love.math.random(1, (self.height - 1) / 2)	 	
-	 	until self[y*self.width + x] == self.pass
+	 	until self.content[y*self.width + x] == self.pass
 	 	end
     
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-  print('digging ok')
   
   for i = 3, maze.height-2, 2 do -- To erase insanity results
     for j = 3, maze.width-2, 2 do
-      if maze[i*self.width + j+1] == maze.pass and maze[i*self.width + j-1] == maze.pass and maze[(i+1)*self.width + j] == maze.pass and maze[(i-1)*self.width + j] == maze.pass then
-        maze[i*self.width + j] = maze.pass
+      if maze.content[i*self.width + j+1] == maze.pass and maze.content[i*self.width + j-1] == maze.pass and maze.content[(i+1)*self.width + j] == maze.pass and maze.content[(i-1)*self.width + j] == maze.pass then
+        maze.content[i*self.width + j] = maze.pass
       end
     end
   end
@@ -159,16 +168,9 @@ function maze:Generate()
 		self.exitY = 1
 	end
 
-	self[self.exitY*self.width + self.exitX] = self.exit
+	self.content[self.exitY*self.width + self.exitX] = self.exit
   
-  for y=1, self.height do   
-    for x=1, self.width do
-      if self[y*self.width + x] == self.wall then
-        self.light[y*self.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.y, cluster.y)
-      end
-    end
-  end
-  print('lights ok')
+  AddLights()
 end
 
 function maze:GenerateEmpty()
@@ -177,14 +179,7 @@ function maze:GenerateEmpty()
 			self[i*self.width + j] = self.pass
 		end 
 	end
-  
-  for y=1, self.height do
-    for x=1, self.width do
-      if self[y*self.width + x] == self.wall then
-        self.light[y*self.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
-      end
-    end
-  end
+  AddLights()
 end
 
 local function mapEnded()
@@ -201,7 +196,7 @@ function maze:mapWays()
   self.ways = {}
   for i = 1, self.height do 
     for j = 1, self.width do
-      if self[i*self.width + j] == self.pass or self[i*self.width + j] == self.room then
+      if self.content[i*self.width + j] == self.pass or self.content[i*self.width + j] == self.room then
         self.ways[i*self.width + j] = 0
       else
         self.ways[i*self.width + j] = -1
@@ -252,8 +247,8 @@ function maze:decorate()
     local x, y
     repeat
       x, y = math.random(1, self.width), math.random(1, self.height)
-    until self[y*self.width + x] == self.pass
-    self[y*self.width + x] = self.key
+    until self.content[y*self.width + x] == self.pass
+    self.content[y*self.width + x] = self.key
   end
 end
 return maze

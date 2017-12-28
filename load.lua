@@ -4,7 +4,6 @@ width, height = love.window.getMode()
 light = Light({ambient = {0, 0, 0}})
 
 camera = love.filesystem.load('camera.lua')()
-print('camera ok')
 cluster = {}
 cluster.x = 45
 cluster.y = 45
@@ -25,16 +24,12 @@ time = 0
 maze = love.filesystem.load('maze.lua')()
 maze:new(51, 51)
 maze:Generate()
-print('maze ok')
 maze:mapWays()
-print('map ok')
 maze:decorate()
 
 entity = love.filesystem.load('entity.lua')
 E = {}
-print('entity ok')
 love.filesystem.load('hero.lua')()
-print('hero ok')
 magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')
 S = {}
@@ -43,7 +38,6 @@ for i=1, maze.roomCount do
   shadow()
   if S[i] == nil then break end
 end
-print('shitheads ok')
 
 update = love.filesystem.load('update.lua')()
 keypressed = love.filesystem.load('keypressed.lua')()
