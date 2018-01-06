@@ -1,13 +1,11 @@
-for i = -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do-- We draw only these, who fit in screen  
-	i = i < 1 and 1 or i
-	if i == maze.height + 1 then break end
-	for j = -widthRange + math.floor(hero.x), widthRange + math.floor(hero.x)  do
-		j = j < 1 and 1 or j
+for i = -heightRange + math.floor(hero.y) < 1 and 1 or -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do
+	if i == maze.height + 1 then break end -- We draw only these, who fit in screen 
+	for j = -widthRange + math.floor(hero.x) < 1 and 1 or -widthRange + math.floor(hero.x), widthRange + math.floor(hero.x) do
 		if j == maze.width + 1 then break end 
     local shit = maze.content[i*maze.width + j]
     if shit == maze.wall then 
       love.graphics.setColor(255, 255, 255)
-      --love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
+      love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
     elseif shit == maze.chest then
       love.graphics.setColor(196, 75, 0)
       love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
@@ -59,5 +57,6 @@ if magic.light.isActive then
     --local _, _, x, y = key:find('(%d+) (%d+)')
     --x, y = tonumber(x), tonumber(y)
     --love.graphics.rectangle('fill', x*cluster.x, y*cluster.y, cluster.x, cluster.y)
-  end
+  end  
+
 end

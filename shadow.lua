@@ -55,6 +55,10 @@ end
 shadow:new(x, y, 'shadow', 'down') 
 shadow:ready()
 
+if maze:findAbsolute(shadow.x, shadow.y, hero.x, hero.y) < 20 then
+  table.insert(watchlist, shadow)
+end
+
 function shadow:deadend()
 	local count = 0
 

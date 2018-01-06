@@ -29,6 +29,21 @@ local foo = function (dt)
   cluster.xScale = cluster.xScale >= cluster.maxX and cluster.xScale or cluster.xScale + 0.01
   cluster.yScale = cluster.yScale >= cluster.maxY and cluster.yScale or cluster.yScale + 0.01
   
+  shadowTime = shadowTime + dt
+  if shadowTime > 2 then
+    watchlist = {}
+    for _, sh in pairs(S) do
+      if maze:findAbsolute(sh.x, sh.y, hero.x, hero.y) < 20 then table.insert(watchlist, sh) end
+    end
+    shadowTime = 0
+  end
+  
+  watchdogs:set()
+  for _, val in pairs(watchlist) do
+    local steps, dir = maze:findAbsolute(val.x, val.y, hero.x, hero.y)
+    if watchdogs[dir] > steps then watchdogs[dir] = steps end
+  end
+  
   camera:setPosition((hero.x+1)*cluster.x - width/2, (hero.y+1)*cluster.y - height/2)
   --camera:setScale(0.1, 0.1)
   love.window.setTitle(love.timer.getFPS())

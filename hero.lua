@@ -59,6 +59,6 @@ function hero:update(dt)
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
-hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 196, 196, 196, hero.lightsize)
+hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 128, 128, 128, hero.lightsize)
 hero.light:setGlowSize(0)
 hero.light:setGlowStrength(1)

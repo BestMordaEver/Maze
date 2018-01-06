@@ -121,7 +121,9 @@ local magic = {
     
     if self.air.cd > self.air.timeActive then self.air.isActive = false end
     
-    if self.darkness.isActive then self.darkness.bad = self.darkness.bad - dt/10 end
+    if self.darkness.isActive then 
+      self.darkness.bad = self.darkness.bad > 0 and self.darkness.bad - dt/10 or 0
+    end
     
     if self.darkness.bad < 1 then 
       if maze.content[hero.y*maze.width + hero.x] == maze.room or (self.fire.x == hero.x and self.fire.y == hero.y) then

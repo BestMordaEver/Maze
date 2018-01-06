@@ -3,6 +3,36 @@ local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0,
   pass = 4, room = 5, key = 6, decoKey = 7, -- no collision
   light = {}, content = {}}
 
+local function ended() -- Checking if room is exited
+	local exit = true
+	for i = 2, maze.height - 1, 2 do 
+		for j = 2, maze.width - 1, 2 do
+			if maze.content[i*maze.width + j] == maze.wall then exit = false end 
+		end
+	end
+	return exit
+end
+
+local function mapEnded()
+  local exit = true
+	for i = 2, maze.height - 1, 2 do 
+		for j = 2, maze.width - 1, 2 do
+			exit = exit and maze.ways[i*self.width + j] ~= 0
+		end
+	end
+	return exit
+end
+
+local function AddLights()
+  for y=1, maze.height do
+    for x=1, maze.width do
+      if maze.content[y*maze.width + x] == maze.wall then
+        maze.light[y*maze.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
+      end
+    end
+  end
+end
+
 function maze:deadend(x,y) -- Checking for deadend
 	local count = 0
 
@@ -19,26 +49,6 @@ function maze:deadend(x,y) -- Checking for deadend
 		count = count + 1 
 	end
 	return count == 4
-end
-
-local function ended() -- Checking if room is exited
-	local exit = true
-	for i = 2, maze.height - 1, 2 do 
-		for j = 2, maze.width - 1, 2 do
-			if maze.content[i*maze.width + j] == maze.wall then exit = false end 
-		end
-	end
-	return exit
-end
-
-local function AddLights()
-  for y=1, maze.height do
-    for x=1, maze.width do
-      if maze.content[y*maze.width + x] == maze.wall then
-        maze.light[y*maze.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
-      end
-    end
-  end
 end
 
 function maze:new(width, height)
@@ -173,16 +183,6 @@ function maze:GenerateEmpty()
   AddLights()
 end
 
-local function mapEnded()
-  local exit = true
-	for i = 2, maze.height - 1, 2 do 
-		for j = 2, maze.width - 1, 2 do
-			exit = exit and maze.ways[i*self.width + j] ~= 0
-		end
-	end
-	return exit
-end
-
 function maze:mapWays()
   self.ways = {}
   for i = 1, self.height do 
@@ -242,4 +242,47 @@ function maze:decorate()
     self.content[y*self.width + x] = self.key
   end
 end
+
+function maze:findAbsolute(x1, y1, x2, y2)
+  x1 = math.modf(x1)
+  y1 = math.modf(y1)
+  x2 = math.modf(x2)
+  y2 = math.modf(y2)
+  if (x1 == x2 and y1 == y2) or self.content[y2*self.width + x2] == self.wall then return 0, 'inside' end
+  local steps, count = 0, 0
+  
+  local A, B, dir = {}, {}, ''
+  B[1] = {x = x1, y = y1, c = 0}
+  
+  repeat
+    for _, val in pairs(B) do
+      if count > 10000 then error('Absolute error, KYS') end
+      x1, y1 = val.x, val.y
+      if x1 == x2 and y1 == y2 then break end
+      if x1+1 == x2 and y1 == y2 then dir = 'left' end
+      if x1-1 == x2 and y1 == y2 then dir = 'right' end
+      if x1 == x2 and y1+1 == y2 then dir = 'up' end
+      if x1 == x2 and y1-1 == y2 then dir = 'down' end
+      
+      A[y1*self.width + x1] = val.c
+      steps = val.c + 1
+      count = count + 1
+      if not A[y1*self.width + x1+1] and self.ways[y1*self.width + x1+1] ~= -1 then 
+        table.insert(B, {x = x1+1, y = y1, c = val.c+1}) 
+      end
+      if not A[y1*self.width + x1-1] and self.ways[y1*self.width + x1-1] ~= -1 then 
+        table.insert(B, {x = x1-1, y = y1, c = val.c+1}) 
+      end
+      if not A[(y1+1)*self.width + x1] and self.ways[(y1+1)*self.width + x1] ~= -1 then 
+        table.insert(B, {x = x1, y = y1+1, c = val.c+1}) 
+      end
+      if not A[(y1-1)*self.width + x1] and self.ways[(y1-1)*self.width + x1] ~= -1 then 
+        table.insert(B, {x = x1, y = y1-1, c = val.c+1}) 
+      end
+    end
+  until x1 == x2 and y1 == y2
+  
+  return steps, dir
+end
+
 return maze

@@ -23,4 +23,5 @@ function love.draw()
 	camera:set()
   light:draw(draw)
 	camera:unset()
+  drawinterface()
 end
