@@ -42,3 +42,5 @@ end
 update = love.filesystem.load('update.lua')()
 keypressed = love.filesystem.load('keypressed.lua')()
 draw = love.filesystem.load('draw.lua')
+keyPreset = love.filesystem.load('keypresets.lua')()
+keyPreset:wasd()

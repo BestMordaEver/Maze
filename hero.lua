@@ -4,6 +4,8 @@ hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
 hero.speed = 0.2
+hero.lightSize = 400
+
 function hero:tryMovement(x, y)
   if self.smoothX ~= 0 or self.smoothY ~= 0 then x, y = 0, 0 end
   if magic.earth.isActive and (x ~= 0 or y ~= 0) and 
@@ -57,6 +59,6 @@ function hero:update(dt)
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
 
-hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 196, 196, 196, 400)
+hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 196, 196, 196, hero.lightsize)
 hero.light:setGlowSize(0)
-hero.light:setGlowStrength(0)
+hero.light:setGlowStrength(1)

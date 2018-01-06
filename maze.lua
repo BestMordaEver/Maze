@@ -32,7 +32,6 @@ local function ended() -- Checking if room is exited
 end
 
 local function AddLights()
-  local t = love.timer.getTime()
   for y=1, maze.height do
     for x=1, maze.width do
       if maze.content[y*maze.width + x] == maze.wall then
@@ -44,7 +43,7 @@ end
 
 function maze:new(width, height)
 	self.width = width 
-	self.height = height 
+	self.height = height
 
 	for i=1, self.height do
     for j=1, self.width do
@@ -144,14 +143,6 @@ function maze:Generate()
 	 	check = check + 1
 
 	until check%1000 == 0 and ended()
-  
-  for i = 3, maze.height-2, 2 do -- To erase insanity results
-    for j = 3, maze.width-2, 2 do
-      if maze.content[i*self.width + j+1] == maze.pass and maze.content[i*self.width + j-1] == maze.pass and maze.content[(i+1)*self.width + j] == maze.pass and maze.content[(i-1)*self.width + j] == maze.pass then
-        maze.content[i*self.width + j] = maze.pass
-      end
-    end
-  end
 
  	-- Here is end
 	if direction == 0 then
