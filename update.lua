@@ -32,6 +32,5 @@ local foo = function (dt)
   camera:setPosition((hero.x+1)*cluster.x - width/2, (hero.y+1)*cluster.y - height/2)
   --camera:setScale(0.1, 0.1)
   love.window.setTitle(love.timer.getFPS())
-  
 end
 return foo

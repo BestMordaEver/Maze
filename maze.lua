@@ -1,6 +1,6 @@
 local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0,
-	wall = 0, pass = 5, exit = 2, room = 3, chest = 4, chestUsed = 1, key = 6,
-  decoKey = 7,
+	wall = 0, chestUsed = 1, exit = 2, chest = 3,  -- collision
+  pass = 4, room = 5, key = 6, decoKey = 7, -- no collision
   light = {}, content = {}}
 
 function maze:deadend(x,y) -- Checking for deadend

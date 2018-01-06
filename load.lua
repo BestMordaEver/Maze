@@ -2,6 +2,7 @@ love.window.setMode(0, 0, {fullscreen = false})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}})
+wall = love.graphics.newImage('1.png')
 
 camera = love.filesystem.load('camera.lua')()
 cluster = {}
@@ -14,12 +15,11 @@ cluster.maxY = 1
 cluster.minX = 0.6
 cluster.minY = 0.6
 flip = true
-love.graphics.scale(0.5, 0.5)
 time = 0
+--love.graphics.scale(0.5, 0.5)
 
 widthRange = math.floor(width/cluster.x/2+1) -- This is how much game has to draw
 heightRange = math.floor(height/cluster.y/2+1) -- so it will fit the monitor
-time = 0
 
 maze = love.filesystem.load('maze.lua')()
 maze:new(51, 51)

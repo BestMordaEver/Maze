@@ -88,7 +88,7 @@ function light_world:update(dt)
   self.visibleLights = {}
   for i = 1, #self.bodies do
     local body = self.bodies[i]
-    body.is_on_screen = body:inRange(-self.l,-self.t,self.w,self.h,self.s)
+    body.is_on_screen = body:inRange(-self.l,-self.t,self.w+200,self.h+200,self.s)
     if body:isVisible() then
       body:update(dt)
       if body.is_on_screen then
@@ -98,7 +98,7 @@ function light_world:update(dt)
   end
   for i = 1, #self.lights do
     local light = self.lights[i]
-    light.is_on_screen = light:inRange(self.l,self.t,self.w,self.h,self.s)
+    light.is_on_screen = light:inRange(self.l,self.t,self.w+200,self.h+200,self.s)
     if light.is_on_screen then
       table.insert(self.visibleLights, light)
     end
