@@ -12,7 +12,7 @@ end
 
 function love.update(dt)
   time = time + dt
-  if time > 0.033 then
+  if time > 0.033 then 
     update(time)
     time = dt > 0.033 and time - dt or time - 0.033
   end

@@ -1,5 +1,5 @@
 hero = entity()
-hero:new(maze.ways.x, maze.ways.y, 'man', 'idle')
+hero:new(maze.ways.x, maze.ways.y, 'idle')
 hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')

@@ -1,8 +1,8 @@
-local animated = {x = 0, y = 0, group, state = 'idle',
+local animated = {x = 0, y = 0, state = 'idle',
 	animation = {count = 0, current = 'idle', imgs = {}}}
 E[#E+1] = animated
 
-function animated:new(x, y, group, state) 
+function animated:new(x, y, state) 
 	self.x = x -- Whenever entity created - give him start values via this
 	self.y = y
 	self.group = group

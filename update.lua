@@ -1,9 +1,14 @@
 local foo = function (dt)
   light:update(dt)
-  for _, e in pairs(E) do 
-    e.animation:wait(dt)
-    e:update(dt)
+  for _, s in pairs(S) do 
+    s.animation:wait(dt)
+    s:update(dt)
+    if (math.abs(s.x - hero.x) < 0.75 and math.abs(s.y - hero.y) < 0.75) and not s.isStunned and not magic.darkness.isActive then 
+      love.event.quit() 
+    end
   end 
+  hero.animation:wait(dt)
+  hero:update(dt)
   
   magic:update(dt)
   

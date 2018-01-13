@@ -52,7 +52,7 @@ function shadow:ready()
   end
 end
 
-shadow:new(x, y, 'shadow', 'down') 
+shadow:new(x, y, 'down') 
 shadow:ready()
 
 if maze:findAbsolute(shadow.x, shadow.y, hero.x, hero.y) < 20 then

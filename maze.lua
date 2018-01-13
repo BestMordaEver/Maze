@@ -256,7 +256,7 @@ function maze:findAbsolute(x1, y1, x2, y2)
   
   repeat
     for _, val in pairs(B) do
-      if count > 10000 then error('Absolute error, KYS') end
+      --if count > 10000 then error('Absolute error, KYS') end
       x1, y1 = val.x, val.y
       if x1 == x2 and y1 == y2 then break end
       if x1+1 == x2 and y1 == y2 then dir = 'left' end
