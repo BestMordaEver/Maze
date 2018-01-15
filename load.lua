@@ -1,5 +1,5 @@
 --love.window.setMode(800, 600, {fullscreen = false})
-love.window.setMode(0, 0, {fullscreen = false})
+love.window.setMode(0, 0, {fullscreen = true})
 width, height = love.window.getMode()
 
 light = Light({ambient = {0, 0, 0}})
@@ -8,8 +8,8 @@ camera = love.filesystem.load('camera.lua')()
 cluster = {}
 cluster.x = 45
 cluster.y = 45
-cluster.xScale = 1
-cluster.yScale = 1
+cluster.sx = 1
+cluster.sy = 1
 cluster.maxX = 1
 cluster.maxY = 1
 cluster.minX = 0.6

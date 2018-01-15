@@ -107,12 +107,12 @@ end
 
 function light_world:draw(cb)
   util.drawto(self.render_buffer, self.l, self.t, self.s, function()
-    cb(                     self.l,self.t,self.w,self.h,self.s)
-		_ = self.disableMaterial   or self:drawMaterial(      self.l,self.t,self.w,self.h,self.s)
-    self:drawShadows( self.l,self.t,self.w,self.h,self.s)
-    _ = self.disableGlow       or self:drawGlow(          self.l,self.t,self.w,self.h,self.s)
-    _ = self.disableRefraction or self:drawRefraction(    self.l,self.t,self.w,self.h,self.s)
-    _ = self.disableReflection or self:drawReflection(    self.l,self.t,self.w,self.h,self.s)
+    cb(self.l,self.t,self.w,self.h,self.s)
+		_ = self.disableMaterial or self:drawMaterial(self.l,self.t,self.w,self.h,self.s)
+    self:drawShadows(self.l,self.t,self.w,self.h,self.s)
+    _ = self.disableGlow or self:drawGlow(self.l,self.t,self.w,self.h,self.s)
+    _ = self.disableRefraction or self:drawRefraction(self.l,self.t,self.w,self.h,self.s)
+    _ = self.disableReflection or self:drawReflection(self.l,self.t,self.w,self.h,self.s)
   end)
   self.post_shader:drawWith(self.render_buffer, self.l, self.t, self.s)
 end

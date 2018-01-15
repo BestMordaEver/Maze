@@ -19,9 +19,7 @@ function love.update(dt)
 end
 
 function love.draw()
-  light:setTranslation(-camera.x, -camera.y)
-	camera:set()
-  light:draw(draw)
-	camera:unset()
+  camera:action()
   drawinterface()
+  love.graphics.rectangle('fill', width/2, height/2, 2, 2)
 end

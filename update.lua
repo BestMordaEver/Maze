@@ -28,11 +28,11 @@ local foo = function (dt)
   flip = not flip
 
   if lvX ~= 0 and lvY ~= 0 then 
-    cluster.xScale = cluster.xScale <= cluster.minX and cluster.xScale or cluster.xScale - 0.03
-    cluster.yScale = cluster.yScale <= cluster.minY and cluster.yScale or cluster.yScale - 0.03
+    cluster.sx = cluster.sx <= cluster.minX and cluster.sx or cluster.sx - 0.03
+    cluster.sy = cluster.sy <= cluster.minY and cluster.sy or cluster.sy - 0.03
   end
-  cluster.xScale = cluster.xScale >= cluster.maxX and cluster.xScale or cluster.xScale + 0.01
-  cluster.yScale = cluster.yScale >= cluster.maxY and cluster.yScale or cluster.yScale + 0.01
+  cluster.sx = cluster.sx >= cluster.maxX and cluster.sx or cluster.sx + 0.01
+  cluster.sy = cluster.sy >= cluster.maxY and cluster.sy or cluster.sy + 0.01
   
   shadowTime = shadowTime + dt
   if shadowTime > 2 then
@@ -49,8 +49,7 @@ local foo = function (dt)
     if watchdogs[dir] > steps then watchdogs[dir] = steps end
   end
   
-  camera:setPosition((hero.x+1)*cluster.x - width/2, (hero.y+1)*cluster.y - height/2)
-  --camera:setScale(0.1, 0.1)
+  camera:setPosition(((hero.x+0.5)*cluster.x - width/2), ((hero.y+0.5)*cluster.y - height/2))
   love.window.setTitle(love.timer.getFPS())
 end
 return foo
