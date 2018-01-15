@@ -59,12 +59,12 @@ end
 function util.drawto(canvas, x, y, scale, cb)
   local last_buffer = love.graphics.getCanvas()
   love.graphics.push()
-  love.graphics.origin()
-	love.graphics.setCanvas(canvas)
-  love.graphics.scale(1/camera.scale, 1/camera.scale)
-	love.graphics.translate(-camera.x, -camera.y)
-  cb()
-  love.graphics.setCanvas(last_buffer)
+    love.graphics.origin()
+    love.graphics.setCanvas(canvas)
+      love.graphics.translate(x, y)
+      love.graphics.scale(scale)
+      cb()
+    love.graphics.setCanvas(last_buffer)
   love.graphics.pop()
 end
 

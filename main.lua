@@ -19,6 +19,9 @@ function love.update(dt)
 end
 
 function love.draw()
+  light:setTranslation(-camera.x, -camera.y)
+	camera:set()
   light:draw(draw)
-	drawinterface()
+	camera:unset()
+  drawinterface()
 end

@@ -16,6 +16,7 @@ cluster.minX = 0.6
 cluster.minY = 0.6
 flip = true
 time = 0
+--love.graphics.scale(0.5, 0.5)
 
 widthRange = math.floor(width/cluster.x/2+1) -- This is how much game has to draw
 heightRange = math.floor(height/cluster.y/2+1) -- so it will fit the monitor
