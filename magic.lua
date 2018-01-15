@@ -46,8 +46,9 @@ local magic = {
     cd = 10,
     x = 0,
     y = 0,
-    light = light:newLight(0, 0, 0, 0, 0, 250),
+    light = light:newLight(0, 0, 0, 0, 0, 75),
     isActive = false,
+    timeActive = 10, 
     cast = function(self)
       local _, x = math.modf(hero.x)
       local _, y = math.modf(hero.y)
@@ -62,8 +63,8 @@ local magic = {
     end
   }, 
   light = {
-    cdFinal = 15,
-    cd = 15,
+    cdFinal = 25,
+    cd = 25,
     isActive = false,
     stepsTaken = 15,
     stepsMax = 15,
@@ -120,10 +121,13 @@ local magic = {
     self.light.cd = self.light.cd >= self.light.cdFinal and self.light.cdFinal or self.light.cd + dt
     
     if self.air.cd > self.air.timeActive then self.air.isActive = false end
+    if self.fire.cd > self.fire.timeActive then self.fire.isActive = false end
     
     if self.darkness.isActive then 
       self.darkness.bad = self.darkness.bad > 0 and self.darkness.bad - dt/10 or 0
     end
+    
+    self.fire.light:setVisible(self.fire.isActive and self.fire.light.is_on_screen)
     
     if self.darkness.bad < 1 then 
       if maze.content[hero.y*maze.width + hero.x] == maze.room or (self.fire.x == hero.x and self.fire.y == hero.y) then
@@ -156,25 +160,25 @@ local magic = {
           self.light.soulsL[key]:setVisible(false)
           if maze.content[y*maze.width + x+1] >= maze.pass then 
             if not self.light.souls[x+1 .. ' ' .. y] then
-              self.light.soulsL[x+1 .. ' ' .. y] = light:newLight((x+1.5)*cluster.x, (y)*cluster.y, 255, 255, 255, 250) 
+              self.light.soulsL[x+1 .. ' ' .. y] = light:newLight((x+1.5)*cluster.x, (y)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x+1 .. ' ' .. y] = true 
           end
           if maze.content[y*maze.width + x-1] >= maze.pass then 
             if not self.light.souls[x-1 .. ' ' .. y] then
-              self.light.soulsL[x-1 .. ' ' .. y] = light:newLight((x-0.5)*cluster.x, (y)*cluster.y, 255, 255, 255, 250) 
+              self.light.soulsL[x-1 .. ' ' .. y] = light:newLight((x-0.5)*cluster.x, (y)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x-1 .. ' ' .. y] = true 
           end
           if maze.content[(y+1)*maze.width + x] >= maze.pass then 
             if not self.light.souls[x .. ' ' .. y+1] then
-              self.light.soulsL[x .. ' ' .. y+1] = light:newLight((x)*cluster.x, (y+1.5)*cluster.y, 255, 255, 255, 250) 
+              self.light.soulsL[x .. ' ' .. y+1] = light:newLight((x)*cluster.x, (y+1.5)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x .. ' ' .. y+1] = true 
           end
           if maze.content[(y-1)*maze.width + x] >= maze.pass then 
             if not self.light.souls[x .. ' ' .. y-1] then
-              self.light.soulsL[x .. ' ' .. y-1] = light:newLight((x)*cluster.x, (y-0.5)*cluster.y, 255, 255, 255, 250) 
+              self.light.soulsL[x .. ' ' .. y-1] = light:newLight((x)*cluster.x, (y-0.5)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x .. ' ' .. y-1] = true 
           end

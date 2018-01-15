@@ -11,10 +11,6 @@ local foo = function (k)
     magic.light:cast()
   elseif k == keyPreset.darkness then
     magic.darkness:cast()
-  elseif k == 'l' then
-    camera:setScale(0.8)
-  elseif k == 'k' then
-    camera:setScale(1.25)
   end
 end
 return foo

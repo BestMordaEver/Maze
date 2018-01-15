@@ -21,5 +21,4 @@ end
 function love.draw()
   camera:action()
   drawinterface()
-  love.graphics.rectangle('fill', width/2, height/2, 2, 2)
 end
