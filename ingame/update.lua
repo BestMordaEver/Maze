@@ -20,16 +20,17 @@ local foo = function (dt)
   if love.keyboard.isDown(keyPreset.left) then lvX = lvX - 1 end 
   local _, x = math.modf(hero.x)
   local _, y = math.modf(hero.y)
-  local walked = false
+  
+  if flip then hero.lastStep = false end -- Camera shifting fix
   
   if x == 0 and y == 0 and not magic.light.isActive and not magic.darkness.isActive then 
-    if flip then walked = hero:tryMovement(lvX, 0) end
-    if not flip then walked = hero:tryMovement(0, lvY) end
+    if flip then hero.lastStep = hero:tryMovement(lvX, 0) or hero.lastStep end
+    if not flip then hero.lastStep = hero:tryMovement(0, lvY) or hero.lastStep end
   end
   flip = not flip
 
-  if lvX ~= 0 or lvY ~= 0 then -- Camera shifting back
-    cluster.s = cluster.s <= cluster.min and cluster.s or cluster.s - 0.002
+  if hero.lastStep and (lvX ~= 0 or lvY ~= 0) then -- Camera shifting back
+    cluster.s = cluster.s <= cluster.min and cluster.s or cluster.s - 0.004
   else
     cluster.s = cluster.s >= cluster.max and cluster.s or cluster.s + 0.0005
   end

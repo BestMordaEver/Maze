@@ -127,19 +127,23 @@ function maze:Generate()
 
 		direction = love.math.random(0,3)
 								-- Jumpin`
-		if direction == 0 and x ~= self.width - 1 and self.content[y*self.width + x+2] ~= self.room and self.content[y*self.width + x+2] ~= self.pass then 
-			self.content[y*self.width + x+1] = self.pass 
-			x = x + 2 
-		elseif direction == 1 and x ~= 2 and self.content[y*self.width + x-2] ~= self.room and self.content[y*self.width + x-2] ~= self.pass then 
-			self.content[y*self.width + x-1] = self.pass 
-			x = x - 2 
-		elseif direction == 2 and y ~= self.height - 1 and self.content[(y+2)*self.width + x] ~= self.room and self.content[(y+2)*self.width + x] ~= self.pass then 
-			self.content[(y+1)*self.width + x] = self.pass 
-			y = y + 2
-		elseif direction == 3 and y ~= 2 and self.content[(y-2)*self.width + x] ~= self.room and self.content[(y-2)*self.width + x] ~= self.pass then 
-			self.content[(y-1)*self.width + x] = self.pass 
-			y = y - 2
-	 		end
+		if direction == 0 and x ~= self.width - 1 and 
+      self.content[y*self.width + x+2] ~= self.room and self.content[y*self.width + x+2] ~= self.pass then 
+        self.content[y*self.width + x+1] = self.pass 
+        x = x + 2 
+		elseif direction == 1 and x ~= 2 and 
+      self.content[y*self.width + x-2] ~= self.room and self.content[y*self.width + x-2] ~= self.pass then 
+        self.content[y*self.width + x-1] = self.pass 
+        x = x - 2 
+		elseif direction == 2 and y ~= self.height - 1 and 
+      self.content[(y+2)*self.width + x] ~= self.room and self.content[(y+2)*self.width + x] ~= self.pass then 
+        self.content[(y+1)*self.width + x] = self.pass 
+        y = y + 2
+		elseif direction == 3 and y ~= 2 and 
+      self.content[(y-2)*self.width + x] ~= self.room and self.content[(y-2)*self.width + x] ~= self.pass then 
+        self.content[(y-1)*self.width + x] = self.pass 
+        y = y - 2
+    end
 		 	
 		self.content[y*self.width + x] = self.pass -- Diggin`
 	

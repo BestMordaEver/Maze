@@ -5,9 +5,11 @@ hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
 hero.speed = 0.2
 hero.lightSize = 400
+hero.lastStep = false
 
 function hero:tryMovement(x, y)
   if self.smoothX ~= 0 or self.smoothY ~= 0 then x, y = 0, 0 end
+  if x == 0 and y == 0 then return false end
   if magic.earth.isActive and (x ~= 0 or y ~= 0) and 
     not (self.y+y < 2 or self.x+x < 2 or self.y+y > maze.height - 1 or self.x+x > maze.width - 1) then 
     magic.earth.isActive = false

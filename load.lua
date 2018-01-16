@@ -37,9 +37,15 @@ for i=1, maze.roomCount do
   if S[i] == nil then break end
 end
 
-update = love.filesystem.load('update.lua')()
-keypressed = love.filesystem.load('keypressed.lua')()
-draw = love.filesystem.load('draw.lua')
+ingameUpdate = love.filesystem.load('ingame/update.lua')()
+ingameKeypressed = love.filesystem.load('ingame/keypressed.lua')()
+ingameDraw = love.filesystem.load('ingame/draw.lua')
+mainmenuUpdate = love.filesystem.load('mainmenu/update.lua')()
+mainmenuKeypressed = love.filesystem.load('mainmenu/keypressed.lua')()
+mainmenuDraw = love.filesystem.load('mainmenu/draw.lua')
+pauseUpdate = love.filesystem.load('pause/update.lua')()
+pauseKeypressed = love.filesystem.load('pause/keypressed.lua')()
+pauseDraw = love.filesystem.load('pause/draw.lua')
 drawinterface = love.filesystem.load('drawinterface.lua')
 keyPreset = love.filesystem.load('keypresets.lua')()
 keyPreset:wasd()
