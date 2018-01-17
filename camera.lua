@@ -11,12 +11,12 @@ function camera:action()
 end
 
 function camera:setPosition(x, y)
-	self.x = x or self.x
-	self.y = y or self.y
+  self.x = x 
+	self.y = y
 end
 
 function camera:setScale(s)
-	self.scale = s or self.scale
+	self.scale = s
 end
 
 return camera
