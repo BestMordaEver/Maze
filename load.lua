@@ -1,3 +1,10 @@
+--love.window.setMode(800, 600, {fullscreen = false})
+love.window.setMode(0, 0, {fullscreen = true})
+width, height = love.window.getMode()
+
+B = {}
+button = love.filesystem.load('button.lua')()
+
 ingameLoad = love.filesystem.load('ingame/load.lua')
 ingameUpdate = love.filesystem.load('ingame/update.lua')()
 ingameKeypressed = love.filesystem.load('ingame/keypressed.lua')()
@@ -13,3 +20,4 @@ pauseDraw = love.filesystem.load('pause/draw.lua')
 drawinterface = love.filesystem.load('drawinterface.lua')
 keyPreset = love.filesystem.load('keypresets.lua')()
 keyPreset:wasd()
+gameState = 'mainmenu'

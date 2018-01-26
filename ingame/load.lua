@@ -1,7 +1,3 @@
---love.window.setMode(800, 600, {fullscreen = false})
-love.window.setMode(0, 0, {fullscreen = true})
-width, height = love.window.getMode()
-
 light = Light({ambient = {0, 0, 0}})
 
 camera = love.filesystem.load('camera.lua')()
