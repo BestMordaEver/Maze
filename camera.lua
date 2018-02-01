@@ -6,6 +6,8 @@ camera.scale = 1
 function camera:action()
   love.graphics.push()
   light:setTranslation(-self.x, -self.y, self.scale)
+  love.graphics.translate(-self.x, -self.y)
+  love.graphics.scale(self.scale)
   light:draw(ingameDraw)
 	love.graphics.pop()
 end

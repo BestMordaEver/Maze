@@ -1,4 +1,4 @@
-hero = entity()
+local hero = entity()
 hero:new(maze.ways.x, maze.ways.y, 'idle')
 hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
@@ -64,3 +64,5 @@ end
 hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 128, 128, 128, hero.lightsize)
 hero.light:setGlowSize(0)
 hero.light:setGlowStrength(1)
+
+return hero

@@ -185,6 +185,16 @@ local magic = {
         end
       end
     end
+  end,
+
+  new = function (self)
+    self.air.cd, self.air.x, self.air.y, self.air.isActive = self.air.cdFinal, 0, 0, false
+    self.water.charges = 0
+    self.earth.cd, self.earth.isActive = self.earth.cdFinal, false
+    self.fire.cd, self.fire.x, self.fire.y, self.fire.isActive = self.fire.cdFinal, 0, 0, false
+    self.light.cd, self.light.isActive, self.light.stepsTaken = self.light.cdFinal, false, self.light.stepsMax
+    self.light.time, self.light.souls, self.light.soulsL = 0, {}, {}
+    self.darkness.bad, self.darkness.isActive = 1, false
   end
 }
 magic.fire.light:setColor(255, 128, 0)

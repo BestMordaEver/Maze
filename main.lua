@@ -1,13 +1,6 @@
-Light = require 'Light' -- God bless this man
-
-function println(...)
-  print(...)
-end
-
 function love.load()
 	love.filesystem.load('load.lua')()
   mainmenuLoad()
-  ingameLoad()
 end
 
 function love.update(dt)
@@ -21,6 +14,9 @@ function love.update(dt)
     mainmenuUpdate(dt)
   elseif gameState == 'pause' then
     pauseUpdate(dt)
+  elseif gameState == 'transfer' then
+    ingameLoad()
+    gameState = 'ingame'
   end
 end
 
@@ -36,12 +32,12 @@ end
 
 function love.mousepressed(x, y, button)
   if gameState == 'mainmenu' then 
-    
+  
   end
 end
 
 function love.mousereleased(x, y, button)
-  if gameState == 'mainmenu' or gameState == 'pause' then
+  if button == 1 and gameState == 'mainmenu' or gameState == 'pause' then
     local x, y = love.mouse.getPosition()
     for _, b in pairs(B) do
       if x > b.x and x < b.dx and y > b.y and y < b.dy then

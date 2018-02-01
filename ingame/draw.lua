@@ -46,11 +46,6 @@ if magic.air.isActive then
   love.graphics.rectangle('fill', magic.air.x*cluster.x, magic.air.y*cluster.y, cluster.x, cluster.y)
 end
 
---[[if magic.fire.isActive then
-  love.graphics.setColor(255, 128, 0, 128)
-  love.graphics.rectangle('fill', magic.fire.x*cluster.x, magic.fire.y*cluster.y, cluster.x, cluster.y)
-end]]
-
 if magic.light.isActive then
   love.graphics.setColor(255, 255, 255, 128)
   for key, _ in pairs(magic.light.souls) do

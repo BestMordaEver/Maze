@@ -1,51 +1,42 @@
-menuB = B
+menuB = {}
+B = menuB
 collectionB = {}
 settingsB = {}
 
-B.newgameButton = button('New game', width/3, height/4, width/3, height*0.08)
-B.loadgameButton = button('Load game', width/3, height*0.35, width/3, height*0.08)
-B.collectionButton = button('Collection', width/3, height*0.45, width/3, height*0.08)
-B.settingsButton = button('Settings', width/3, height*0.55, width/3, height*0.08)
-B.quitButton = button('Quit', width/3, height*0.65, width/3, height*0.08)
+menuB.newgameButton = button('New game', width/3, height/4, width/3, height*0.08)
+menuB.loadgameButton = button('Load game', width/3, height*0.35, width/3, height*0.08)
+menuB.collectionButton = button('Collection', width/3, height*0.45, width/3, height*0.08)
+menuB.settingsButton = button('Settings', width/3, height*0.55, width/3, height*0.08)
+menuB.quitButton = button('Quit', width/3, height*0.65, width/3, height*0.08)
 
-B.newgameButton.action = function()
+menuB.newgameButton.action = function()
   B = {}
-  gameState = 'ingame'
+  gameState = 'transfer'
 end
 
-B.loadgameButton.action = function()
+menuB.loadgameButton.action = function()
   B = {}
-  gameState = 'ingame'
+  gameState = 'transfer'
 end
 
-B.collectionButton.action = function()
+menuB.collectionButton.action = function()
   B = collectionB
 end
 
-B.settingsButton.action = function()
+menuB.settingsButton.action = function()
   B = settingsB
 end
 
-B.quitButton.action = love.event.quit
+menuB.quitButton.action = love.event.quit
 
-B = {}
+collectionB.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
 
-B.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
-
-B.escapeButton.action = function()
+collectionB.escapeButton.action = function()
   B = menuB
 end
 
-collectionB = B
+settingsB.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
 
-B = {}
-
-B.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
-
-B.escapeButton.action = function()
+settingsB.escapeButton.action = function()
   B = menuB
 end
-
-settingsB = B
-
-B = menuB
