@@ -1,10 +1,11 @@
 Light = require 'Light' -- God bless this man
 
-love.window.setMode(800, 600, {fullscreen = false})
---love.window.setMode(0, 0, {fullscreen = true})
+--love.window.setMode(800, 600, {fullscreen = false})
+love.window.setMode(0, 0, {fullscreen = true})
 width, height = love.window.getMode()
 
 B = {}
+LastB = {}
 button = love.filesystem.load('button.lua')()
 
 ingameLoad = love.filesystem.load('ingame/load.lua')
@@ -39,3 +40,11 @@ light = Light({ambient = {0, 0, 0}})
 entity = love.filesystem.load('entity.lua')
 magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')
+
+giveButton = function (b)
+  b.backButton = button('Back', width/6, height*9/10, width/12, height/20)
+  
+  b.backButton.action = function()
+    B = LastB
+  end
+end

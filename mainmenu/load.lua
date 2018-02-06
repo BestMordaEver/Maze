@@ -2,41 +2,54 @@ menuB = {}
 B = menuB
 collectionB = {}
 settingsB = {}
+pauseB = {}
 
-menuB.newgameButton = button('New game', width/3, height/4, width/3, height*0.08)
-menuB.loadgameButton = button('Load game', width/3, height*0.35, width/3, height*0.08)
-menuB.collectionButton = button('Collection', width/3, height*0.45, width/3, height*0.08)
-menuB.settingsButton = button('Settings', width/3, height*0.55, width/3, height*0.08)
-menuB.quitButton = button('Quit', width/3, height*0.65, width/3, height*0.08)
+menuB.newgameButton = button('New game', width/3, height/4, width/3, height*0.08, 
+  function ()
+    B = {}
+    ingameLoad()
+    gameState = 'ingame'
+  end)
 
-menuB.newgameButton.action = function()
-  B = {}
-  gameState = 'transfer'
-end
+menuB.loadgameButton = button('Load game', width/3, height*0.35, width/3, height*0.08,
+  function ()
+    B = {}
+    ingameLoad()
+    gameState = 'ingame'
+  end)
 
-menuB.loadgameButton.action = function()
-  B = {}
-  gameState = 'transfer'
-end
+menuB.collectionButton = button('Collection', width/3, height*0.45, width/3, height*0.08,
+  function ()
+    LastB = B
+    B = collectionB
+  end)
 
-menuB.collectionButton.action = function()
-  B = collectionB
-end
+menuB.settingsButton = button('Settings', width/3, height*0.55, width/3, height*0.08, 
+  function ()
+    LastB = B
+    B = settingsB
+  end)
 
-menuB.settingsButton.action = function()
-  B = settingsB
-end
+menuB.quitButton = button('Quit', width/3, height*0.65, width/3, height*0.08, love.event.quit)
 
-menuB.quitButton.action = love.event.quit
+giveButton(collectionB)
 
-collectionB.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
+giveButton(settingsB)
 
-collectionB.escapeButton.action = function()
-  B = menuB
-end
+pauseB.continueButton = button('Continue', width/3, height*0.35, width/3, height*0.08, 
+  function ()
+    B = {}
+    gameState = 'ingame'
+  end)
 
-settingsB.escapeButton = button('Back', width/6, height*9/10, width/12, height/20)
+pauseB.settingsButton = button('Settings', width/3, height*0.45, width/3, height*0.08,
+  function ()
+    LastB = B
+    B = settingsB
+  end)
 
-settingsB.escapeButton.action = function()
-  B = menuB
-end
+pauseB.quitButton = button('To main menu', width/3, height*0.55, width/3, height*0.08,
+  function ()
+    B = menuB
+    gameState = 'mainmenu'
+  end)

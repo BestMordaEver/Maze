@@ -1,6 +1,6 @@
 local foo = function (k)
   if k == 'escape' then
-    if B.escapeButton then B.escapeButton.action() end
+    if B.backButton then B.backButton.action() end
   end
 end
 return foo

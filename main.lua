@@ -14,9 +14,6 @@ function love.update(dt)
     mainmenuUpdate(dt)
   elseif gameState == 'pause' then
     pauseUpdate(dt)
-  elseif gameState == 'transfer' then
-    ingameLoad()
-    gameState = 'ingame'
   end
 end
 

@@ -1,5 +1,5 @@
 light = Light({ambient = {0, 0, 0}})
-
+  
 flip = true
 time = 0
 

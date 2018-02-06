@@ -4,7 +4,8 @@ local foo = function (dt)
     s.animation:wait(dt)
     s:update(dt)
     if (math.abs(s.x - hero.x) < 0.75 and math.abs(s.y - hero.y) < 0.75) and not s.isStunned and not magic.darkness.isActive then 
-      love.event.quit() 
+      gameState = 'mainmenu'
+      B = menuB
     end
   end 
   hero.animation:wait(dt)

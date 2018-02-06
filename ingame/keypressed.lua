@@ -1,6 +1,7 @@
 local foo = function (k)
   if k == 'escape' then 
-    love.event.quit()
+    B = pauseB
+    gameState = 'pause'
   elseif k == keyPreset.air then
     magic.air:cast()
   elseif k == keyPreset.earth then

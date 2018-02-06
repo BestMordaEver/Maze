@@ -54,6 +54,11 @@ end
 function maze:new(width, height)
 	self.width = width 
 	self.height = height
+  self.exitX = 0
+  self.exitY = 0
+  self.roomCount = 0
+  self.light = {}
+  self.content = {}
 
 	for i=1, self.height do
     for j=1, self.width do

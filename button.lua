@@ -1,5 +1,7 @@
-local foo = function(text, x, y, sx, sy)
+local foo = function(text, x, y, sx, sy, foo)
   local button = {text = text, x = x, y = y, sx = sx, sy = sy, dx = x + sx, dy = y + sy}
+  
+  button.action = foo
   
   function button:draw()
     local x, y = love.mouse.getPosition()
