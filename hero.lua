@@ -3,8 +3,7 @@ hero:new(maze.ways.x, maze.ways.y, 'idle')
 hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
-hero.speed = 0.2
-hero.lightSize = 400
+hero.speed = 0.1
 hero.lastStep = false
 
 function hero:tryMovement(x, y)
@@ -48,11 +47,9 @@ function hero:update(dt)
   
   if math.abs(self.smoothX) > self.speed/2 then 
     self.x = self.smoothX < 0 and self.x - self.speed or self.x + self.speed 
-    self.light.x = self.smoothX < 0 and self.light.x - self.speed*cluster.x or self.light.x + self.speed*cluster.x 
   end
   if math.abs(self.smoothY) > self.speed/2 then 
     self.y = self.smoothY < 0 and self.y - self.speed or self.y + self.speed 
-    self.light.y = self.smoothY < 0 and self.light.y - self.speed*cluster.y or self.light.y + self.speed*cluster.y 
   end
     
   self.smoothX = math.abs(self.smoothX) > self.speed/2 and 
@@ -60,9 +57,5 @@ function hero:update(dt)
   self.smoothY = math.abs(self.smoothY) > self.speed/2 and 
     (self.smoothY > 0 and self.smoothY - self.speed or self.smoothY + self.speed) or 0
 end
-
-hero.light = light:newLight((hero.x+0.5)*cluster.x, (hero.y+0.5)*cluster.y, 128, 128, 128, hero.lightsize)
-hero.light:setGlowSize(0)
-hero.light:setGlowStrength(1)
 
 return hero

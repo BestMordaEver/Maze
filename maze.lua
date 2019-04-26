@@ -1,7 +1,7 @@
 local maze = {height, width, exitX = 0, exitY = 0, roomCount = 0,
 	wall = 0, chestUsed = 1, exit = 2, chest = 3,  -- collision
   pass = 4, room = 5, key = 6, decoKey = 7, -- no collision
-  light = {}, content = {}}
+  visibility = {}, content = {}}
 
 local function ended() -- Checking if room is exited
 	local exit = true
@@ -21,16 +21,6 @@ local function mapEnded()
 		end
 	end
 	return exit
-end
-
-local function AddLights()
-  for y=1, maze.height do
-    for x=1, maze.width do
-      if maze.content[y*maze.width + x] == maze.wall then
-        maze.light[y*maze.width + x] = light:newRectangle((x+0.5)*cluster.x, (y+0.5)*cluster.y, cluster.x, cluster.y)
-      end
-    end
-  end
 end
 
 function maze:deadend(x,y) -- Checking for deadend
@@ -57,12 +47,12 @@ function maze:new(width, height)
   self.exitX = 0
   self.exitY = 0
   self.roomCount = 0
-  self.light = {}
   self.content = {}
 
 	for i=1, self.height do
     for j=1, self.width do
       self.content[i*self.width + j] = self.wall
+      self.visibility[i*self.width + j] = false
     end
 	end
 end
@@ -179,8 +169,6 @@ function maze:Generate()
 	end
 
 	self.content[self.exitY*self.width + self.exitX] = self.exit
-  
-  AddLights()
 end
 
 function maze:GenerateEmpty()
@@ -189,7 +177,6 @@ function maze:GenerateEmpty()
 			self[i*self.width + j] = self.pass
 		end 
 	end
-  AddLights()
 end
 
 function maze:mapWays()
@@ -292,6 +279,49 @@ function maze:findAbsolute(x1, y1, x2, y2)
   until x1 == x2 and y1 == y2
   
   return steps, dir
+end
+
+function maze:update()
+  for i=1, self.height do
+    for j=1, self.width do
+      self.visibility[i*self.width + j] = false
+    end
+	end
+  
+  local x,y = math.floor(hero.x),math.floor(hero.y)
+  self.visibility[y*self.width + x] = true
+  
+  repeat
+    y = y + 1
+    self.visibility[y*self.width + x - 1] = true
+    self.visibility[y*self.width + x] = true
+    self.visibility[y*self.width + x + 1] = true
+  until self.content[y*self.width + x] == self.wall
+  
+  x,y = math.floor(hero.x),math.floor(hero.y)
+  repeat
+    y = y - 1
+    self.visibility[y*self.width + x - 1] = true
+    self.visibility[y*self.width + x] = true
+    self.visibility[y*self.width + x + 1] = true
+  until self.content[y*self.width + x] == self.wall
+  x,y = math.floor(hero.x),math.floor(hero.y)
+  
+  repeat
+    x = x + 1
+    self.visibility[(y-1)*self.width + x] = true
+    self.visibility[y*self.width + x] = true
+    self.visibility[(y+1)*self.width + x] = true
+  until self.content[y*self.width + x] == self.wall
+  x,y = math.floor(hero.x),math.floor(hero.y)
+  
+  repeat
+    x = x - 1
+    self.visibility[(y-1)*self.width + x] = true
+    self.visibility[y*self.width + x] = true
+    self.visibility[(y+1)*self.width + x] = true
+  until self.content[y*self.width + x] == self.wall
+  --print(self.visibility[(hero.y+1)*self.width + hero.x+1])
 end
 
 return maze

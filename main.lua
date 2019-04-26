@@ -5,11 +5,7 @@ end
 
 function love.update(dt)
   if gameState == 'ingame' then
-    time = time + dt
-    if time > 0.033 then 
-      ingameUpdate(time)
-      time = dt > 0.033 and time - dt or time - 0.033
-    end
+    ingameUpdate(dt)
   elseif gameState == 'mainmenu' then
     mainmenuUpdate(dt)
   elseif gameState == 'pause' then

@@ -1,12 +1,10 @@
-light = Light({ambient = {0, 0, 0}})
-  
 flip = true
 time = 0
 
 maze:new(51, 51)
 maze:Generate()
 maze:mapWays()
-maze:decorate()
+--maze:decorate()
 
 E = {}
 hero = love.filesystem.load('hero.lua')()

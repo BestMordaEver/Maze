@@ -1,5 +1,4 @@
 local foo = function (dt)
-  light:update(dt)
   for _, s in pairs(S) do -- Update for shadows
     s.animation:wait(dt)
     s:update(dt)
@@ -50,7 +49,7 @@ local foo = function (dt)
     local steps, dir = maze:findAbsolute(val.x, val.y, hero.x, hero.y)
     if watchdogs[dir] > steps then watchdogs[dir] = steps end
   end
-  
+  maze:update()
   camera:setScale(cluster.s)
   camera:setPosition((hero.x+0.5)*cluster.x*camera.scale - width/2, (hero.y+0.5)*cluster.y*camera.scale - height/2)
   love.window.setTitle(love.timer.getFPS())
