@@ -39,17 +39,17 @@ local foo = function (dt)
   if shadowTime > 2 then
     watchlist = {}
     for _, sh in pairs(S) do
-      if maze:findAbsolute(sh.x, sh.y, hero.x, hero.y) < 20 then table.insert(watchlist, sh) end
+      if Maze.findAbsolute(sh.x, sh.y, hero.x, hero.y) < 20 then table.insert(watchlist, sh) end
     end
     shadowTime = 0
   end
   
   watchdogs.up, watchdogs.down, watchdogs.left, watchdogs.right = 20, 20, 20, 20
   for _, val in pairs(watchlist) do
-    local steps, dir = maze:findAbsolute(val.x, val.y, hero.x, hero.y)
+    local steps, dir = Maze.findAbsolute(val.x, val.y, hero.x, hero.y)
     if watchdogs[dir] > steps then watchdogs[dir] = steps end
   end
-  maze:update()
+  Maze.update()
   camera:setScale(cluster.s)
   camera:setPosition((hero.x+0.5)*cluster.x*camera.scale - width/2, (hero.y+0.5)*cluster.y*camera.scale - height/2)
   love.window.setTitle(love.timer.getFPS())

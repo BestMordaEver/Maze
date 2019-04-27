@@ -1,5 +1,5 @@
 local hero = entity()
-hero:new(maze.ways.x, maze.ways.y, 'idle')
+hero:new(Maze.ways.x, Maze.ways.y, 'idle')
 hero.animation:newAnimation('idle', 1)
 hero.animation:addFrame('idle', 'Men/MatveyIdle1.png')
 hero.animation:setAnimation('idle')
@@ -10,7 +10,7 @@ function hero:tryMovement(x, y)
   if self.smoothX ~= 0 or self.smoothY ~= 0 then x, y = 0, 0 end
   if x == 0 and y == 0 then return false end
   if magic.earth.isActive and (x ~= 0 or y ~= 0) and 
-    not (self.y+y < 2 or self.x+x < 2 or self.y+y > maze.height - 1 or self.x+x > maze.width - 1) then 
+    not (self.y+y < 2 or self.x+x < 2 or self.y+y > Maze.height - 1 or self.x+x > Maze.width - 1) then 
     magic.earth.isActive = false
     return self:tryMovement(2*x, 2*y)
   end
@@ -18,22 +18,22 @@ function hero:tryMovement(x, y)
   self.y = tonumber(tostring(self.y))
   self.x = tonumber(tostring(self.x))
   
-  local shit = maze.content[(self.y + y)*maze.width + self.x + x]
-  if shit == maze.wall then
+  local shit = Maze.content[(self.y + y)*Maze.width + self.x + x]
+  if shit == Maze.wall then
     return false
-  elseif shit == maze.pass or shit == maze.room or shit == maze.decoKey then
+  elseif shit == Maze.pass or shit == Maze.room or shit == Maze.decoKey then
     self:moveRel(x, y)
-  elseif shit == maze.chest then
+  elseif shit == Maze.chest then
     if magic.water.charges ~= 0 then
-      maze.content[(self.y + y)*maze.width + self.x + x] = maze.chestUsed
+      Maze.content[(self.y + y)*Maze.width + self.x + x] = Maze.chestUsed
       magic.water.charges = magic.water.charges - 1
     end
     return false
-  elseif shit == maze.key then
-    maze.content[(self.y + y)*maze.width + self.x + x] = maze.decoKey
+  elseif shit == Maze.key then
+    Maze.content[(self.y + y)*Maze.width + self.x + x] = Maze.decoKey
     magic.water.charges = magic.water.charges + 1
     self:moveRel(x, y)
-  elseif shit == maze.exit then
+  elseif shit == Maze.exit then
     love.event.quit()
   end
   return true

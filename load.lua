@@ -1,5 +1,5 @@
---love.window.setMode(800, 600, {fullscreen = false})
-love.window.setMode(0, 0, {fullscreen = true})
+love.window.setMode(800, 600, {fullscreen = false})
+--love.window.setMode(0, 0, {fullscreen = true})
 width, height = love.window.getMode()
 
 B = {}
@@ -33,7 +33,7 @@ cluster.min = 0.6
 
 widthRange = math.floor(width/cluster.x/2/cluster.min+1) -- This is how much game has to draw
 heightRange = math.floor(height/cluster.y/2/cluster.min+1) -- so it will fit the monitor
-maze = love.filesystem.load('maze.lua')()
+love.filesystem.load('maze.lua')()
 entity = love.filesystem.load('entity.lua')
 magic = love.filesystem.load('magic.lua')()
 shadow = love.filesystem.load('shadow.lua')

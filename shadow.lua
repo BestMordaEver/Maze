@@ -9,13 +9,13 @@ local x, y
 
 repeat  
   local b = true
-  x = love.math.random(2, maze.width-1)
-  y = love.math.random(2, maze.height-1)
+  x = love.math.random(2, Maze.width-1)
+  y = love.math.random(2, Maze.height-1)
   for i=1, #S do
-    b = b and (S[i] == shadow or (math.abs(maze.ways[y*maze.width + x] - maze.ways[S[i].y*maze.width + S[i].x]) > 2))
+    b = b and (S[i] == shadow or (math.abs(Maze.ways[y*Maze.width + x] - Maze.ways[S[i].y*Maze.width + S[i].x]) > 2))
   end
-  b = b and math.abs(maze.ways[y*maze.width + x] - maze.ways[hero.y*maze.width + hero.x]) > 3
-until maze.content[y*maze.width + x] == maze.pass and b
+  b = b and math.abs(Maze.ways[y*Maze.width + x] - Maze.ways[hero.y*Maze.width + hero.x]) > 3
+until Maze.content[y*Maze.width + x] == Maze.pass and b
 
 function shadow:tryMovement(x, y)
   self.y = tonumber(tostring(self.y))
@@ -24,10 +24,10 @@ function shadow:tryMovement(x, y)
     self:turnAround()
     return false
   end
-  local shit = maze.content[(self.y + y)*maze.width + self.x + x]
-  if shit == maze.wall or shit == maze.room or shit == maze.exit then
+  local shit = Maze.content[(self.y + y)*Maze.width + self.x + x]
+  if shit == Maze.wall or shit == Maze.room or shit == Maze.exit then
     return false
-  elseif shit == maze.pass or shit == maze.key or shit == maze.decoKey then
+  elseif shit == Maze.pass or shit == Maze.key or shit == Maze.decoKey then
     self:moveRel(x, y)
   end
   return true
@@ -55,23 +55,23 @@ end
 shadow:new(x, y, 'down') 
 shadow:ready()
 
-if maze:findAbsolute(shadow.x, shadow.y, hero.x, hero.y) < 20 then
+if Maze.findAbsolute(shadow.x, shadow.y, hero.x, hero.y) < 20 then
   table.insert(watchlist, shadow)
 end
 
 function shadow:deadend()
 	local count = 0
 
-	if maze.content[self.y*maze.width + self.x + 1] >= maze.pass then 
+	if Maze.content[self.y*Maze.width + self.x + 1] >= Maze.pass then 
 		count = count + 1 
 	end
-	if maze.content[(self.y + 1)*maze.width + self.x] >= maze.pass then 
+	if Maze.content[(self.y + 1)*Maze.width + self.x] >= Maze.pass then 
 		count = count + 1 
 	end
-	if maze.content[self.y*maze.width + self.x - 1] >= maze.pass then 
+	if Maze.content[self.y*Maze.width + self.x - 1] >= Maze.pass then 
 		count = count + 1 
 	end
-	if maze.content[(self.y - 1)*maze.width + self.x] >= maze.pass then 
+	if Maze.content[(self.y - 1)*Maze.width + self.x] >= Maze.pass then 
 		count = count + 1 
 	end
 	return count

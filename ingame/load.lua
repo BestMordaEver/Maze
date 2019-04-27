@@ -1,10 +1,9 @@
 flip = true
 time = 0
 
-maze:new(51, 51)
-maze:Generate()
-maze:mapWays()
---maze:decorate()
+Maze.generate(11, 11)
+
+Maze.mapWays()
 
 E = {}
 hero = love.filesystem.load('hero.lua')()
@@ -14,7 +13,7 @@ S = {}
 watchlist, watchdogs = {}, {up = 20, down = 20, left = 20, right = 20, inside = 0}
 shadowTime = 0
 
-for i=1, maze.roomCount do
+for i=1, Maze.roomCount do
   shadow()
   if S[i] == nil then break end
 end

@@ -1,28 +1,28 @@
 for i = -heightRange + math.floor(hero.y) < 1 and 1 or -heightRange + math.floor(hero.y), heightRange + math.floor(hero.y) do
-	if i == maze.height + 1 then break end -- We draw only these, who fit in screen 
+	if i == Maze.height + 1 then break end -- We draw only these, who fit in screen 
 	for j = -widthRange + math.floor(hero.x) < 1 and 1 or -widthRange + math.floor(hero.x), widthRange + math.floor(hero.x) do
-    if j == maze.width + 1 then break end 
-    if maze.visibility[i*maze.width + j] then 
-      local shit = maze.content[i*maze.width + j]
+    if j == Maze.width + 1 then break end 
+    if Maze.visibility[i*Maze.width + j] then 
+      local shit = Maze.content[i*Maze.width + j]
       
-      if shit == maze.wall then 
+      if shit == Maze.wall then 
         love.graphics.setColor(255, 255, 255)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-      elseif shit == maze.chest then
+      elseif shit == Maze.chest then
         love.graphics.setColor(196, 75, 0)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-      elseif shit == maze.chestUsed then
+      elseif shit == Maze.chestUsed then
         love.graphics.setColor(196, 75, 0)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
         love.graphics.setColor(0, 0, 0)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y+cluster.y/3, cluster.x, cluster.y/10)
-      elseif shit == maze.key then
+      elseif shit == Maze.key then
         love.graphics.setColor(0, 128, 196)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-      elseif shit == maze.decoKey then
+      elseif shit == Maze.decoKey then
         love.graphics.setColor(0, 64, 128)
         love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
-      elseif shit == maze.pass or shit == maze.room then 
+      elseif shit == Maze.pass or shit == Maze.room then 
         --love.graphics.setColor(64, 64, 64)
         --love.graphics.rectangle('fill', j*cluster.x, i*cluster.y, cluster.x, cluster.y)
       end
@@ -40,7 +40,7 @@ love.graphics.rectangle('fill', hero.x*cluster.x + cluster.x/4, hero.y*cluster.y
 
 love.graphics.setColor(128, 0, 128, 196)
 for _, shad in pairs(S) do
-  if maze.visibility[math.floor(shad.y)*maze.width + math.floor(shad.x)] then 
+  if Maze.visibility[math.floor(shad.y)*Maze.width + math.floor(shad.x)] then 
     love.graphics.rectangle('fill', shad.x*cluster.x, shad.y*cluster.y, cluster.x, cluster.y)
   --shad:draw()
   end

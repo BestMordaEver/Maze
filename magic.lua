@@ -13,13 +13,13 @@ local magic = {
         self.timeActivated = 0
         local x = math.floor(hero.x)
         local y = math.floor(hero.y)
-        if maze.ways[y*maze.width + x+1] ~= -1 and maze.ways[y*maze.width + x+1] < maze.ways[y*maze.width + x] then 
+        if Maze.ways[y*Maze.width + x+1] ~= -1 and Maze.ways[y*Maze.width + x+1] < Maze.ways[y*Maze.width + x] then 
           self.x, self.y = x+1, y
-        elseif maze.ways[y*maze.width + x-1] ~= -1 and maze.ways[y*maze.width + x-1] < maze.ways[y*maze.width + x] then 
+        elseif Maze.ways[y*Maze.width + x-1] ~= -1 and Maze.ways[y*Maze.width + x-1] < Maze.ways[y*Maze.width + x] then 
           self.x, self.y = x-1, y
-        elseif maze.ways[(y+1)*maze.width + x] ~= -1 and maze.ways[(y+1)*maze.width + x] < maze.ways[y*maze.width + x] then 
+        elseif Maze.ways[(y+1)*Maze.width + x] ~= -1 and Maze.ways[(y+1)*Maze.width + x] < Maze.ways[y*Maze.width + x] then 
           self.x, self.y = x, y+1
-        elseif maze.ways[(y-1)*maze.width + x] ~= -1 and maze.ways[(y-1)*maze.width + x] < maze.ways[y*maze.width + x] then 
+        elseif Maze.ways[(y-1)*Maze.width + x] ~= -1 and Maze.ways[(y-1)*Maze.width + x] < Maze.ways[y*Maze.width + x] then 
           self.x, self.y = x, y-1
         else 
           self.x, self.y = x, y
@@ -77,25 +77,25 @@ local magic = {
         self.souls = {}
         local x = math.floor(hero.x)
         local y = math.floor(hero.y)
-        if maze.content[y*maze.width + x+1] >= maze.pass then 
+        if Maze.content[y*Maze.width + x+1] >= Maze.pass then 
           if not self.souls[x+1 .. ' ' .. y] then
             --self.soulsL[x+1 .. ' ' .. y] = light:newLight((x+1.5)*cluster.x, (y)*cluster.y, 255, 255, 255, 250) 
           end
           self.souls[x+1 .. ' ' .. y] = true 
         end
-        if maze.content[y*maze.width + x-1] >= maze.pass then 
+        if Maze.content[y*Maze.width + x-1] >= Maze.pass then 
           if not self.souls[x-1 .. ' ' .. y] then
             --self.soulsL[x-1 .. ' ' .. y] = light:newLight((x-0.5)*cluster.x, (y)*cluster.y, 255, 255, 255, 250) 
           end
           self.souls[x-1 .. ' ' .. y] = true 
         end
-        if maze.content[(y+1)*maze.width + x] >= maze.pass then 
+        if Maze.content[(y+1)*Maze.width + x] >= Maze.pass then 
           if not self.souls[x .. ' ' .. y+1] then
             --self.soulsL[x .. ' ' .. y+1] = light:newLight((x)*cluster.x, (y+1.5)*cluster.y, 255, 255, 255, 250) 
           end
           self.souls[x .. ' ' .. y+1] = true 
         end
-        if maze.content[(y-1)*maze.width + x] >= maze.pass then 
+        if Maze.content[(y-1)*Maze.width + x] >= Maze.pass then 
           if not self.souls[x .. ' ' .. y-1] then
             --self.soulsL[x .. ' ' .. y-1] = light:newLight((x)*cluster.x, (y-0.5)*cluster.y, 255, 255, 255, 250) 
           end
@@ -125,7 +125,7 @@ local magic = {
     end
     
     if self.darkness.bad < 1 then 
-      if maze.content[hero.y*maze.width + hero.x] == maze.room or (self.fire.x == hero.x and self.fire.y == hero.y) then
+      if Maze.content[hero.y*Maze.width + hero.x] == Maze.room or (self.fire.x == hero.x and self.fire.y == hero.y) then
         self.darkness.bad = self.darkness.bad + dt/20 
       else
         self.darkness.bad = self.darkness.bad + dt/80
@@ -151,25 +151,25 @@ local magic = {
         for key, _ in pairs(T) do
           local _, _, x, y = string.find(key, '(%d+) (%d+)')
           x, y = tonumber(x), tonumber(y)
-          if maze.content[y*maze.width + x+1] >= maze.pass then 
+          if Maze.content[y*Maze.width + x+1] >= Maze.pass then 
             if not self.light.souls[x+1 .. ' ' .. y] then
               --self.light.soulsL[x+1 .. ' ' .. y] = light:newLight((x+1.5)*cluster.x, (y)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x+1 .. ' ' .. y] = true 
           end
-          if maze.content[y*maze.width + x-1] >= maze.pass then 
+          if Maze.content[y*Maze.width + x-1] >= Maze.pass then 
             if not self.light.souls[x-1 .. ' ' .. y] then
               --self.light.soulsL[x-1 .. ' ' .. y] = light:newLight((x-0.5)*cluster.x, (y)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x-1 .. ' ' .. y] = true 
           end
-          if maze.content[(y+1)*maze.width + x] >= maze.pass then 
+          if Maze.content[(y+1)*Maze.width + x] >= Maze.pass then 
             if not self.light.souls[x .. ' ' .. y+1] then
               --self.light.soulsL[x .. ' ' .. y+1] = light:newLight((x)*cluster.x, (y+1.5)*cluster.y, 128, 128, 128, 250) 
             end
             self.light.souls[x .. ' ' .. y+1] = true 
           end
-          if maze.content[(y-1)*maze.width + x] >= maze.pass then 
+          if Maze.content[(y-1)*Maze.width + x] >= Maze.pass then 
             if not self.light.souls[x .. ' ' .. y-1] then
               --self.light.soulsL[x .. ' ' .. y-1] = light:newLight((x)*cluster.x, (y-0.5)*cluster.y, 128, 128, 128, 250) 
             end
